@@ -200,9 +200,15 @@
   delta0 <- 0.13 ## approx mean death rate for equilib calculations
   delta_max <- 1.0 ## max death rate (set to 1/day to avoid numerical issues in model)
   ## Temperature dependence in delta
-  delta_T0 <- user()  ## min temperature
-  delta_Tw <- user()  ## width of temperature window
-  delta_Tm <- delta_T0 + delta_Tw ## max temperature
+  
+  # delta_T0 <- user()  ## min temperature
+  # delta_Tw <- user()  ## width of temperature window
+  # delta_Tm <- delta_T0 + delta_Tw ## max temperature
+  
+  delta_Tm <- user()  ## max temp
+  delta_fT0 <- user() ## min temp as fraction of max temp
+  delta_T0 <- delta_Tm*delta_fT0  ## min temp
+  
   delta_pTm <- user() ## power on Tm term
   delta_pT0d <- user() ## difference between power on Tm and power on T0
   delta_pT0 <- delta_pTm+delta_pT0d ## power on T0 term
@@ -240,23 +246,32 @@
   ## TBC
   ##
 
-  Kc <- Kc_mean
+  # Kc <- Kc_mean
   
-  # tau_rain <- user()
-  # max_rain <- user()
-  # sat_rain <- user()
-  # 
-  # ## exp to prevent accum_rain going negative for small max_rain and high rainfall
-  # change_accum_rain <- exp(-(1+rainfall/sat_rain+(rainfall*rainfall)/(max_rain*max_rain))*DT/tau_rain)  
-  # initial(accum_rain) <- 0
-  # ## implicit DT^2 below intended to allow high rainfall, low max_rain scenario to pull down accum_rain fast
-  # ## division by rainfall_mean makes accum_rain, sat_rain, max_rain relative to mean rainfall
-  # update(accum_rain) <- (accum_rain+ DT*rainfall/tau_rain/rainfall_mean)*change_accum_rain
-  # 
-  # ## what we would expect accum_rain to equilibriate to if rainfall was constant
-  # accum_rain_eq <- 1.0/(1.0+1.0/sat_rain+1.0/(max_rain*max_rain))
-  # 
-  # Kc <- Kc_mean*accum_rain/accum_rain_eq
+  tau_rain <- user()
+  sat_rain <- user()
+  max_rain <- user()
+  
+  ## Model currently normalised so sat_rain and max_rain are relative to mean rain (over timeseries)
+  ## This may not be the best paramtererisation over multiple locations
+  ## Easy to switch to absolute - just remove /rainfall_mean in next line
+  ##
+  
+  rain_norm <- rainfall/rainfall_mean
+  
+  ## what we would expect accum_rain to equilibriate to if rainfall was constant
+  accum_rain_eq <- 1.0/(1.0+1.0/sat_rain+1.0/(max_rain*max_rain))
+  
+  ## exp to prevent accum_rain going negative for small max_rain and high rainfall
+  change_accum_rain <- exp(-(1+rain_norm/sat_rain+(rain_norm*rain_norm)/(max_rain*max_rain))*DT/tau_rain)
+  
+  initial(accum_rain) <- accum_rain_eq
+  ## implicit DT^2 below intended to allow high rainfall, low max_rain scenario to pull down accum_rain fast
+  ## division by rainfall_mean makes accum_rain, sat_rain, max_rain relative to mean rainfall
+  update(accum_rain) <- (accum_rain+ DT*rain_norm/tau_rain)*change_accum_rain
+
+
+  Kc <- Kc_mean*accum_rain/accum_rain_eq
   
   
   kappa <- user()  ## biting rate/day
@@ -270,9 +285,14 @@
   Beta_hm_mean <- 0.86*Beta_hm_max
   
   ## Temperature dependence in beta
-  Beta_T0 <- user()  ## min temperature
-  Beta_Tw <- user()  ## width of temperature window
-  Beta_Tm <- Beta_T0 + Beta_Tw ## max temperature
+  # Beta_T0 <- user()  ## min temperature
+  # Beta_Tw <- user()  ## width of temperature window
+  # Beta_Tm <- Beta_T0 + Beta_Tw ## max temperature
+  # 
+  Beta_Tm <- user()  ## max temperature
+  Beta_fT0 <- user()  ## min temp as fraction of max temp
+  Beta_T0 <- Beta_Tm * Beta_fT0 ## min temperature
+  
   Beta_pTm <- user() ## power on Tm term
   Beta_pT0d <- user() ## difference between power on Tm and power on T0
   Beta_pT0 <- Beta_pTm+Beta_pT0d ## power on T0 term

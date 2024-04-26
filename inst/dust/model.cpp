@@ -38,12 +38,12 @@ __host__ __device__ T odin_sign(T x) {
 // [[dust::time_type(discrete)]]
 // [[dust::param(age_rate_d, has_default = FALSE, default_value = NULL, rank = 2, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(age_removal_d, has_default = FALSE, default_value = NULL, rank = 2, min = -Inf, max = Inf, integer = FALSE)]]
+// [[dust::param(Beta_fT0, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(Beta_hm_max, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(Beta_mh_max, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(Beta_pT0d, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(Beta_pTm, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
-// [[dust::param(Beta_T0, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
-// [[dust::param(Beta_Tw, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
+// [[dust::param(Beta_Tm, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(births_d, has_default = FALSE, default_value = NULL, rank = 2, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(CALIB_YEAR, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(climate_d, has_default = FALSE, default_value = NULL, rank = 2, min = -Inf, max = Inf, integer = FALSE)]]
@@ -51,11 +51,11 @@ __host__ __device__ T odin_sign(T x) {
 // [[dust::param(DATA_REPORTING_DELAY, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(DATA_SERO_YEAR, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(DATA_START_YEAR, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
+// [[dust::param(delta_fT0, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(delta_p, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(delta_pT0d, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(delta_pTm, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
-// [[dust::param(delta_T0, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
-// [[dust::param(delta_Tw, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
+// [[dust::param(delta_Tm, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(dis_pri, has_default = FALSE, default_value = NULL, rank = 1, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(dis_quart, has_default = FALSE, default_value = NULL, rank = 1, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(dis_sec, has_default = FALSE, default_value = NULL, rank = 1, min = -Inf, max = Inf, integer = FALSE)]]
@@ -74,6 +74,7 @@ __host__ __device__ T odin_sign(T x) {
 // [[dust::param(LAST_CLIM_YEAR, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(LAST_YEAR, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(life_expec_d, has_default = FALSE, default_value = NULL, rank = 2, min = -Inf, max = Inf, integer = FALSE)]]
+// [[dust::param(max_rain, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(Mwt, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(N_sim, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(NTP, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
@@ -86,23 +87,27 @@ __host__ __device__ T odin_sign(T x) {
 // [[dust::param(Rel_R04, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(REPEAT_CLIM_4YEARS, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(Rm, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
+// [[dust::param(sat_rain, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(sdis_pri, has_default = FALSE, default_value = NULL, rank = 1, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(sdis_quart, has_default = FALSE, default_value = NULL, rank = 1, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(sdis_sec, has_default = FALSE, default_value = NULL, rank = 1, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(sdis_tert, has_default = FALSE, default_value = NULL, rank = 1, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(sigma, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
+// [[dust::param(tau_rain, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 class model {
 public:
   using real_type = double;
   using rng_state_type = dust::random::generator<real_type>;
   using data_type = dust::no_data;
   struct shared_type {
+    real_type accum_rain_eq;
     real_type Acrit;
     real_type age_per;
     std::vector<real_type> age_rate_d;
     std::vector<real_type> age_removal_d;
     std::vector<real_type> ageb;
     std::vector<real_type> agec;
+    real_type Beta_fT0;
     real_type Beta_hm_max;
     real_type Beta_hm_mean;
     real_type Beta_mh_max;
@@ -114,7 +119,6 @@ public:
     real_type Beta_T0;
     real_type Beta_Tm;
     real_type Beta_Tp;
-    real_type Beta_Tw;
     std::vector<real_type> births_d;
     real_type CALIB_YEAR;
     std::vector<real_type> climate_d;
@@ -124,6 +128,7 @@ public:
     real_type DATA_SERO_YEAR;
     real_type DATA_START_YEAR;
     real_type DAYS_IN_4Y;
+    real_type delta_fT0;
     real_type delta_max;
     real_type delta_norm;
     real_type delta_p;
@@ -133,7 +138,6 @@ public:
     real_type delta_T0;
     real_type delta_Tm;
     real_type delta_Tp;
-    real_type delta_Tw;
     real_type delta0;
     int dim_age_I1;
     int dim_age_I12;
@@ -438,6 +442,7 @@ public:
     std::vector<real_type> init_inf_mos;
     std::vector<real_type> init_life_expec;
     real_type init_lifespan;
+    real_type initial_accum_rain;
     real_type initial_cur_tot_FOI;
     real_type initial_DATA_DAY;
     real_type initial_exposed1;
@@ -536,13 +541,13 @@ public:
     real_type initial_Y3T_out;
     real_type initial_Y4T_out;
     real_type kappa;
-    real_type Kc;
     real_type Kc_mean;
     real_type LAST_CLIM_YEAR;
     real_type LAST_YEAR;
     real_type LEAP_YEAR;
     std::vector<real_type> life_expec_d;
     real_type max_clim_day;
+    real_type max_rain;
     real_type max_rel_year;
     std::vector<real_type> mean_age;
     real_type Mwt;
@@ -640,6 +645,7 @@ public:
     real_type rho_sec;
     real_type rho_tert;
     real_type Rm;
+    real_type sat_rain;
     std::vector<real_type> sdis_pri;
     std::vector<real_type> sdis_quart;
     std::vector<real_type> sdis_sec;
@@ -647,6 +653,7 @@ public:
     real_type sigma;
     real_type START_YEAR;
     std::vector<real_type> suscinitpop;
+    real_type tau_rain;
     real_type year_calib;
     real_type YEAR_OFFSET;
     real_type YEAR_STEP;
@@ -840,54 +847,55 @@ public:
     shared(pars.shared), internal(pars.internal) {
   }
   size_t size() const {
-    return shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I1234 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_Ntotal_out + shared->dim_out_disease_age + shared->dim_out_disease_cur_week + shared->dim_out_disease_isowk + shared->dim_out_disease_tot_yr + shared->dim_out_seronegative + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R1234 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
+    return shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I1234 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_Ntotal_out + shared->dim_out_disease_age + shared->dim_out_disease_cur_week + shared->dim_out_disease_isowk + shared->dim_out_disease_tot_yr + shared->dim_out_seronegative + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R1234 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
   }
   std::vector<real_type> initial(size_t step, rng_state_type& rng_state) {
-    std::vector<real_type> state(shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I1234 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_Ntotal_out + shared->dim_out_disease_age + shared->dim_out_disease_cur_week + shared->dim_out_disease_isowk + shared->dim_out_disease_tot_yr + shared->dim_out_seronegative + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R1234 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43);
+    std::vector<real_type> state(shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I1234 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_Ntotal_out + shared->dim_out_disease_age + shared->dim_out_disease_cur_week + shared->dim_out_disease_isowk + shared->dim_out_disease_tot_yr + shared->dim_out_seronegative + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R1234 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44);
     state[0] = shared->initial_out_CUR_DOW;
     state[1] = shared->initial_out_year;
     state[2] = shared->initial_DATA_DAY;
     state[3] = shared->initial_out_curisoweek;
     state[4] = shared->initial_out_cur_clim_day;
-    state[5] = shared->initial_out_R0agescale;
-    state[6] = shared->initial_Lwt;
-    state[7] = shared->initial_Mwt_S;
-    state[8] = shared->initial_Mwt_E1;
-    state[9] = shared->initial_Mwt_E2;
-    state[10] = shared->initial_Mwt_E3;
-    state[11] = shared->initial_Mwt_E4;
-    state[12] = shared->initial_Mwt_I1;
-    state[13] = shared->initial_Mwt_I2;
-    state[14] = shared->initial_Mwt_I3;
-    state[15] = shared->initial_Mwt_I4;
-    state[16] = shared->initial_R0t_1;
-    state[17] = shared->initial_R0t_2;
-    state[18] = shared->initial_R0t_3;
-    state[19] = shared->initial_R0t_4;
-    state[20] = shared->initial_out_temp;
-    state[21] = shared->initial_out_delta;
-    state[22] = shared->initial_out_beta;
-    state[23] = shared->initial_out_Mwt;
-    state[24] = shared->initial_NT_out;
-    state[25] = shared->initial_Y1T_out;
-    state[26] = shared->initial_Y2T_out;
-    state[27] = shared->initial_Y3T_out;
-    state[28] = shared->initial_Y4T_out;
-    state[29] = shared->initial_exposed1;
-    state[30] = shared->initial_exposed2;
-    state[31] = shared->initial_exposed3;
-    state[32] = shared->initial_exposed4;
-    state[33] = shared->initial_infectious1;
-    state[34] = shared->initial_infectious2;
-    state[35] = shared->initial_infectious3;
-    state[36] = shared->initial_infectious4;
-    state[37] = shared->initial_inc_FOI1;
-    state[38] = shared->initial_inc_FOI2;
-    state[39] = shared->initial_inc_FOI3;
-    state[40] = shared->initial_inc_FOI4;
-    state[41] = shared->initial_tot_inc_FOI;
-    state[42] = shared->initial_cur_tot_FOI;
-    std::copy(shared->initial_S.begin(), shared->initial_S.end(), state.begin() + 43);
+    state[5] = shared->initial_accum_rain;
+    state[6] = shared->initial_out_R0agescale;
+    state[7] = shared->initial_Lwt;
+    state[8] = shared->initial_Mwt_S;
+    state[9] = shared->initial_Mwt_E1;
+    state[10] = shared->initial_Mwt_E2;
+    state[11] = shared->initial_Mwt_E3;
+    state[12] = shared->initial_Mwt_E4;
+    state[13] = shared->initial_Mwt_I1;
+    state[14] = shared->initial_Mwt_I2;
+    state[15] = shared->initial_Mwt_I3;
+    state[16] = shared->initial_Mwt_I4;
+    state[17] = shared->initial_R0t_1;
+    state[18] = shared->initial_R0t_2;
+    state[19] = shared->initial_R0t_3;
+    state[20] = shared->initial_R0t_4;
+    state[21] = shared->initial_out_temp;
+    state[22] = shared->initial_out_delta;
+    state[23] = shared->initial_out_beta;
+    state[24] = shared->initial_out_Mwt;
+    state[25] = shared->initial_NT_out;
+    state[26] = shared->initial_Y1T_out;
+    state[27] = shared->initial_Y2T_out;
+    state[28] = shared->initial_Y3T_out;
+    state[29] = shared->initial_Y4T_out;
+    state[30] = shared->initial_exposed1;
+    state[31] = shared->initial_exposed2;
+    state[32] = shared->initial_exposed3;
+    state[33] = shared->initial_exposed4;
+    state[34] = shared->initial_infectious1;
+    state[35] = shared->initial_infectious2;
+    state[36] = shared->initial_infectious3;
+    state[37] = shared->initial_infectious4;
+    state[38] = shared->initial_inc_FOI1;
+    state[39] = shared->initial_inc_FOI2;
+    state[40] = shared->initial_inc_FOI3;
+    state[41] = shared->initial_inc_FOI4;
+    state[42] = shared->initial_tot_inc_FOI;
+    state[43] = shared->initial_cur_tot_FOI;
+    std::copy(shared->initial_S.begin(), shared->initial_S.end(), state.begin() + 44);
     std::copy(shared->initial_I1.begin(), shared->initial_I1.end(), state.begin() + shared->offset_variable_I1);
     std::copy(shared->initial_I2.begin(), shared->initial_I2.end(), state.begin() + shared->offset_variable_I2);
     std::copy(shared->initial_I3.begin(), shared->initial_I3.end(), state.begin() + shared->offset_variable_I3);
@@ -945,35 +953,36 @@ public:
   }
   void update(size_t step, const real_type * state, rng_state_type& rng_state, real_type * state_next) {
     const real_type DATA_DAY = state[2];
-    const real_type Lwt = state[6];
-    const real_type Mwt_S = state[7];
-    const real_type Mwt_E1 = state[8];
-    const real_type Mwt_E2 = state[9];
-    const real_type Mwt_E3 = state[10];
-    const real_type Mwt_E4 = state[11];
-    const real_type Mwt_I1 = state[12];
-    const real_type Mwt_I2 = state[13];
-    const real_type Mwt_I3 = state[14];
-    const real_type Mwt_I4 = state[15];
-    const real_type exposed1 = state[29];
-    const real_type exposed2 = state[30];
-    const real_type exposed3 = state[31];
-    const real_type exposed4 = state[32];
-    const real_type infectious1 = state[33];
-    const real_type infectious2 = state[34];
-    const real_type infectious3 = state[35];
-    const real_type infectious4 = state[36];
-    const real_type inc_FOI1 = state[37];
-    const real_type inc_FOI2 = state[38];
-    const real_type inc_FOI3 = state[39];
-    const real_type inc_FOI4 = state[40];
-    const real_type tot_inc_FOI = state[41];
+    const real_type accum_rain = state[5];
+    const real_type Lwt = state[7];
+    const real_type Mwt_S = state[8];
+    const real_type Mwt_E1 = state[9];
+    const real_type Mwt_E2 = state[10];
+    const real_type Mwt_E3 = state[11];
+    const real_type Mwt_E4 = state[12];
+    const real_type Mwt_I1 = state[13];
+    const real_type Mwt_I2 = state[14];
+    const real_type Mwt_I3 = state[15];
+    const real_type Mwt_I4 = state[16];
+    const real_type exposed1 = state[30];
+    const real_type exposed2 = state[31];
+    const real_type exposed3 = state[32];
+    const real_type exposed4 = state[33];
+    const real_type infectious1 = state[34];
+    const real_type infectious2 = state[35];
+    const real_type infectious3 = state[36];
+    const real_type infectious4 = state[37];
+    const real_type inc_FOI1 = state[38];
+    const real_type inc_FOI2 = state[39];
+    const real_type inc_FOI3 = state[40];
+    const real_type inc_FOI4 = state[41];
+    const real_type tot_inc_FOI = state[42];
     const real_type * out_disease_cur_week = state + shared->offset_variable_out_disease_cur_week;
     const real_type * out_disease_age = state + shared->offset_variable_out_disease_age;
     const real_type * out_disease_isowk = state + shared->offset_variable_out_disease_isowk;
     const real_type * out_disease_tot_yr = state + shared->offset_variable_out_disease_tot_yr;
     const real_type * out_seronegative = state + shared->offset_variable_out_seronegative;
-    const real_type * S = state + 43;
+    const real_type * S = state + 44;
     const real_type * I1 = state + shared->offset_variable_I1;
     const real_type * I2 = state + shared->offset_variable_I2;
     const real_type * I3 = state + shared->offset_variable_I3;
@@ -1024,13 +1033,14 @@ public:
     real_type cur_data_day = dust::math::floor(DATA_DAY);
     real_type Mwt_tot = Mwt_S + Mwt_E1 + Mwt_E2 + Mwt_E3 + Mwt_E4 + Mwt_I1 + Mwt_I2 + Mwt_I3 + Mwt_I4;
     real_type TIME = step * shared->DT;
-    state_next[33] = infectious1 * (1 - shared->DT / (real_type) shared->inf_per) + exposed1 * shared->DT / (real_type) shared->incub;
-    state_next[34] = infectious2 * (1 - shared->DT / (real_type) shared->inf_per) + exposed2 * shared->DT / (real_type) shared->incub;
-    state_next[35] = infectious3 * (1 - shared->DT / (real_type) shared->inf_per) + exposed3 * shared->DT / (real_type) shared->incub;
-    state_next[36] = infectious4 * (1 - shared->DT / (real_type) shared->inf_per) + exposed4 * shared->DT / (real_type) shared->incub;
+    state_next[34] = infectious1 * (1 - shared->DT / (real_type) shared->inf_per) + exposed1 * shared->DT / (real_type) shared->incub;
+    state_next[35] = infectious2 * (1 - shared->DT / (real_type) shared->inf_per) + exposed2 * shared->DT / (real_type) shared->incub;
+    state_next[36] = infectious3 * (1 - shared->DT / (real_type) shared->inf_per) + exposed3 * shared->DT / (real_type) shared->incub;
+    state_next[37] = infectious4 * (1 - shared->DT / (real_type) shared->inf_per) + exposed4 * shared->DT / (real_type) shared->incub;
     real_type agerts = (dust::math::floor(TIME / (real_type) shared->age_per) == TIME / (real_type) shared->age_per ? shared->age_per / (real_type) shared->YL : 0);
     real_type cur_data_week = dust::math::floor(cur_data_day / (real_type) 7) + 1;
     real_type Lwt_birth = shared->DT * shared->gamma * Mwt_tot;
+    real_type Kc = shared->Kc_mean * accum_rain / (real_type) shared->accum_rain_eq;
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.Ntotal[i - 1] = S[i - 1] + I1[i - 1] + I2[i - 1] + I3[i - 1] + I4[i - 1] + R1[i - 1] + R2[i - 1] + R3[i - 1] + R4[i - 1] + I21[i - 1] + I31[i - 1] + I41[i - 1] + I12[i - 1] + I32[i - 1] + I42[i - 1] + I13[i - 1] + I23[i - 1] + I43[i - 1] + I14[i - 1] + I24[i - 1] + I34[i - 1] + R12[i - 1] + R13[i - 1] + R14[i - 1] + R23[i - 1] + R24[i - 1] + R34[i - 1] + I231[i - 1] + I241[i - 1] + I341[i - 1] + I132[i - 1] + I142[i - 1] + I342[i - 1] + I123[i - 1] + I143[i - 1] + I243[i - 1] + I124[i - 1] + I134[i - 1] + I234[i - 1] + R123[i - 1] + R124[i - 1] + R134[i - 1] + R234[i - 1] + I2341[i - 1] + I1342[i - 1] + I1243[i - 1] + I1234[i - 1] + R1234[i - 1];
     }
@@ -1043,28 +1053,31 @@ public:
     }
     real_type DATA_DOW = (fmodr<real_type>((CUR_DOW - 1 + shared->DATA_REPORTING_DELAY), 7)) + 1;
     real_type FOUR_YEARS = dust::math::floor((TIME_OFFSET) * shared->DT / (real_type) shared->DAYS_IN_4Y);
-    real_type L_deathrt = shared->DT * shared->sigma * ((1 + dust::math::pow<real_type>((Lwt / (real_type) (shared->Kc * NT)), shared->omega)));
+    real_type L_deathrt = shared->DT * shared->sigma * ((1 + dust::math::pow<real_type>((Lwt / (real_type) (Kc * NT)), shared->omega)));
     real_type norm_rel_clim_day = fmodr<real_type>((cur_clim_day + shared->REPEAT_CLIM_4YEARS * shared->DAYS_IN_4Y * 25), (shared->REPEAT_CLIM_4YEARS * shared->DAYS_IN_4Y));
     real_type norm_rel_clim_end_day = shared->max_clim_day - shared->REPEAT_CLIM_4YEARS * shared->DAYS_IN_4Y + fmodr<real_type>((cur_clim_day - shared->max_clim_day), (shared->REPEAT_CLIM_4YEARS * shared->DAYS_IN_4Y));
-    state_next[24] = NT;
+    state_next[25] = NT;
     state_next[4] = cur_clim_day;
     state_next[0] = CUR_DOW;
-    state_next[23] = Mwt_tot / (real_type) NT;
+    state_next[24] = Mwt_tot / (real_type) NT;
     real_type clim_row = (cur_clim_day < 0 ? norm_rel_clim_day : (cur_clim_day >= shared->max_clim_day ? norm_rel_clim_end_day : cur_clim_day));
     real_type DAYS_AFTER_4Y = TIME_OFFSET * shared->DT - FOUR_YEARS * shared->DAYS_IN_4Y;
     real_type O_Lwt = (shared->DT * shared->epsilon + L_deathrt) * (Lwt);
     real_type Lwt_mature = (shared->DT * shared->epsilon / (real_type) (shared->DT * shared->epsilon + L_deathrt)) * (O_Lwt);
+    real_type rainfall = shared->climate_d[shared->dim_climate_d_1 * 1 + static_cast<int>(clim_row + 1) - 1] * shared->DT;
     real_type temperature = shared->climate_d[shared->dim_climate_d_1 * 0 + static_cast<int>(clim_row + 1) - 1];
-    state_next[6] = Lwt_birth + Lwt - O_Lwt;
+    state_next[7] = Lwt_birth + Lwt - O_Lwt;
     real_type YEAR = FOUR_YEARS * 4 + ((DAYS_AFTER_4Y < 366 ? DAYS_AFTER_4Y / (real_type) 366 : 1 + (DAYS_AFTER_4Y - 366) / (real_type) 365)) - shared->YEAR_OFFSET;
     real_type Beta_temperature = (temperature <= shared->Beta_T0 || temperature >= shared->Beta_Tm ? 0 : (shared->Beta_norm * (dust::math::pow<real_type>((temperature - shared->Beta_T0), shared->Beta_pT0)) * (dust::math::pow<real_type>((shared->Beta_Tm - temperature), shared->Beta_pTm))));
     real_type CALENDAR_YEAR = shared->START_YEAR + YEAR;
     real_type delta_temperature = (temperature <= shared->delta_T0 || temperature >= shared->delta_Tm ? 0 : shared->delta_norm * (dust::math::pow<real_type>((temperature - shared->delta_T0), shared->delta_pT0)) * (dust::math::pow<real_type>((shared->delta_Tm - temperature), shared->delta_pTm)));
+    real_type rain_norm = rainfall / (real_type) shared->rainfall_mean;
     real_type rel_year = YEAR - shared->EQUILIB_YEARS;
-    state_next[5] = shared->R0agescale;
-    state_next[20] = temperature;
+    state_next[6] = shared->R0agescale;
+    state_next[21] = temperature;
     real_type Beta_hm = shared->Beta_hm_max * Beta_temperature;
     real_type Beta_mh = shared->Beta_mh_max * Beta_temperature;
+    real_type change_accum_rain = dust::math::exp(- (1 + rain_norm / (real_type) shared->sat_rain + (rain_norm * rain_norm) / (real_type) (shared->max_rain * shared->max_rain)) * shared->DT / (real_type) shared->tau_rain);
     real_type delta = 1 / (real_type) (1 / (real_type) shared->delta_max + delta_temperature * (1 / (real_type) shared->delta_p - 1 / (real_type) shared->delta_max));
     real_type ORDINAL_YEAR = dust::math::floor(CALENDAR_YEAR + static_cast<real_type>(0.0001));
     state_next[1] = CALENDAR_YEAR;
@@ -1093,8 +1106,9 @@ public:
     real_type O_Mwt_E2 = (shared->DT * (delta + 1 / (real_type) shared->eip)) * (Mwt_E2);
     real_type O_Mwt_E3 = (shared->DT * (delta + 1 / (real_type) shared->eip)) * (Mwt_E3);
     real_type O_Mwt_E4 = (shared->DT * (delta + 1 / (real_type) shared->eip)) * (Mwt_E4);
-    state_next[22] = Beta_mh;
-    state_next[21] = delta;
+    state_next[5] = (accum_rain + shared->DT * rain_norm / (real_type) shared->tau_rain) * change_accum_rain;
+    state_next[23] = Beta_mh;
+    state_next[22] = delta;
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.agert[i - 1] = internal.cur_age_rate[i - 1] * agerts;
     }
@@ -1126,16 +1140,16 @@ public:
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.seroneg[i - 1] = S[i - 1] / (real_type) internal.Ntotal[i - 1] * shared->DT / (real_type) CUR_YEAR_LENGTH;
     }
-    state_next[42] = FOI1 + FOI2 + FOI3 + FOI4;
-    state_next[37] = inc_FOI1 + FOI1;
-    state_next[38] = inc_FOI2 + FOI2;
-    state_next[39] = inc_FOI3 + FOI3;
-    state_next[40] = inc_FOI4 + FOI4;
-    state_next[16] = shared->kappa * shared->kappa * (Mwt_tot) * Beta_hm_1 * shared->inf_per * Beta_mh / (real_type) (1 + delta * shared->eip) / (real_type) delta / (real_type) NT / (real_type) shared->R0agescale;
-    state_next[17] = shared->kappa * shared->kappa * (Mwt_tot) * Beta_hm_2 * shared->inf_per * Beta_mh / (real_type) (1 + delta * shared->eip) / (real_type) delta / (real_type) NT / (real_type) shared->R0agescale;
-    state_next[18] = shared->kappa * shared->kappa * (Mwt_tot) * Beta_hm_3 * shared->inf_per * Beta_mh / (real_type) (1 + delta * shared->eip) / (real_type) delta / (real_type) NT / (real_type) shared->R0agescale;
-    state_next[19] = shared->kappa * shared->kappa * (Mwt_tot) * Beta_hm_4 * shared->inf_per * Beta_mh / (real_type) (1 + delta * shared->eip) / (real_type) delta / (real_type) NT / (real_type) shared->R0agescale;
-    state_next[41] = ((shared->NUM_YEAR_ACCUM * dust::math::floor(YEAR / (real_type) shared->NUM_YEAR_ACCUM) == YEAR ? 0 : tot_inc_FOI)) + FOI1 + FOI2 + FOI3 + FOI4;
+    state_next[43] = FOI1 + FOI2 + FOI3 + FOI4;
+    state_next[38] = inc_FOI1 + FOI1;
+    state_next[39] = inc_FOI2 + FOI2;
+    state_next[40] = inc_FOI3 + FOI3;
+    state_next[41] = inc_FOI4 + FOI4;
+    state_next[17] = shared->kappa * shared->kappa * (Mwt_tot) * Beta_hm_1 * shared->inf_per * Beta_mh / (real_type) (1 + delta * shared->eip) / (real_type) delta / (real_type) NT / (real_type) shared->R0agescale;
+    state_next[18] = shared->kappa * shared->kappa * (Mwt_tot) * Beta_hm_2 * shared->inf_per * Beta_mh / (real_type) (1 + delta * shared->eip) / (real_type) delta / (real_type) NT / (real_type) shared->R0agescale;
+    state_next[19] = shared->kappa * shared->kappa * (Mwt_tot) * Beta_hm_3 * shared->inf_per * Beta_mh / (real_type) (1 + delta * shared->eip) / (real_type) delta / (real_type) NT / (real_type) shared->R0agescale;
+    state_next[20] = shared->kappa * shared->kappa * (Mwt_tot) * Beta_hm_4 * shared->inf_per * Beta_mh / (real_type) (1 + delta * shared->eip) / (real_type) delta / (real_type) NT / (real_type) shared->R0agescale;
+    state_next[42] = ((shared->NUM_YEAR_ACCUM * dust::math::floor(YEAR / (real_type) shared->NUM_YEAR_ACCUM) == YEAR ? 0 : tot_inc_FOI)) + FOI1 + FOI2 + FOI3 + FOI4;
     real_type DATA_DAY_OF_YEAR0 = DAY_OF_YEAR + shared->DATA_REPORTING_DELAY;
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.O_I1[i - 1] = dust::random::binomial<real_type>(rng_state, (I1[i - 1]), (shared->nu + internal.deathrt[i - 1]));
@@ -1282,10 +1296,10 @@ public:
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.O_S[i - 1] = dust::random::binomial<real_type>(rng_state, (S[i - 1]), (shared->rho_pri * internal.FOI1a[i - 1] + shared->rho_pri * internal.FOI2a[i - 1] + shared->rho_pri * internal.FOI3a[i - 1] + shared->rho_pri * internal.FOI4a[i - 1] + internal.deathrt[i - 1]));
     }
-    state_next[12] = Mwt_E1_incub + Mwt_I1 - (shared->DT * delta) * (Mwt_I1);
-    state_next[13] = Mwt_E2_incub + Mwt_I2 - (shared->DT * delta) * (Mwt_I2);
-    state_next[14] = Mwt_E3_incub + Mwt_I3 - (shared->DT * delta) * (Mwt_I3);
-    state_next[15] = Mwt_E4_incub + Mwt_I4 - (shared->DT * delta) * (Mwt_I4);
+    state_next[13] = Mwt_E1_incub + Mwt_I1 - (shared->DT * delta) * (Mwt_I1);
+    state_next[14] = Mwt_E2_incub + Mwt_I2 - (shared->DT * delta) * (Mwt_I2);
+    state_next[15] = Mwt_E3_incub + Mwt_I3 - (shared->DT * delta) * (Mwt_I3);
+    state_next[16] = Mwt_E4_incub + Mwt_I4 - (shared->DT * delta) * (Mwt_I4);
     for (int i = 1; i <= shared->N_age; ++i) {
       state_next[shared->offset_variable_out_seronegative + i - 1] = out_seronegative[i - 1] + ((ORDINAL_YEAR == shared->DATA_SERO_YEAR ? internal.seroneg[i - 1] : 0));
     }
@@ -1440,7 +1454,7 @@ public:
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.recov_43[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_I43[i - 1]), (shared->nu / (real_type) (shared->nu + internal.deathrt[i - 1])));
     }
-    state_next[7] = Lwt_mature + Mwt_S - O_Mwt_S;
+    state_next[8] = Lwt_mature + Mwt_S - O_Mwt_S;
     for (int i = 2; i <= shared->N_age_p1; ++i) {
       internal.age_I1[i - 1] = dust::random::binomial<real_type>(rng_state, (I1[i - 1 - 1] - internal.O_I1[i - 1 - 1] + internal.inf_1[i - 1 - 1]), internal.agert[i - 1 - 1]);
     }
@@ -1688,9 +1702,9 @@ public:
     real_type LAST_DATA_YEAR_LENGTH = (fmodr<real_type>((DATA_YEAR - 1), 4) == 0 ? 366 : 365);
     real_type Mwt_inf2 = (Mwt_FOI2 / (real_type) (shared->DT * delta + Mwt_FOI2 + Mwt_FOI3 + Mwt_FOI4)) * (O_Mwt_S - Mwt_inf1);
     real_type THURS_DOY_IN_WEEK0 = 4 - DATA_DOW + DATA_DAY_OF_YEAR;
-    state_next[8] = Mwt_inf1 + Mwt_E1 - O_Mwt_E1;
+    state_next[9] = Mwt_inf1 + Mwt_E1 - O_Mwt_E1;
     for (int i = 1; i <= shared->N_age; ++i) {
-      state_next[43 + i - 1] = internal.age_S[i - 1] + S[i - 1] - internal.O_S[i - 1] - internal.age_S[i + 1 - 1];
+      state_next[44 + i - 1] = internal.age_S[i - 1] + S[i - 1] - internal.O_S[i - 1] - internal.age_S[i + 1 - 1];
     }
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.Y1[i - 1] = shared->phi_pri[0] * (1 + shared->dis_pri[0] * shared->phi_ed) * internal.inf_1[i - 1] + shared->phi_sec[0] * (1 + shared->dis_sec[0] * shared->phi_ed) * (internal.inf_21[i - 1] + internal.inf_31[i - 1] + internal.inf_41[i - 1]) + shared->phi_tert[0] * (1 + shared->dis_tert[0] * shared->phi_ed) * (internal.inf_231[i - 1] + internal.inf_241[i - 1] + internal.inf_341[i - 1]) + shared->phi_quart[0] * (1 + shared->dis_quart[0] * shared->phi_ed) * internal.inf_2341[i - 1];
@@ -1834,7 +1848,7 @@ public:
     for (int i = 1; i <= shared->N_age; ++i) {
       state_next[shared->offset_variable_I41 + i - 1] = internal.age_I41[i - 1] + I41[i - 1] - internal.O_I41[i - 1] + internal.inf_41[i - 1] - internal.age_I41[i + 1 - 1];
     }
-    state_next[9] = Mwt_inf2 + Mwt_E2 - O_Mwt_E2;
+    state_next[10] = Mwt_inf2 + Mwt_E2 - O_Mwt_E2;
     for (int i = 1; i <= shared->N_age; ++i) {
       state_next[shared->offset_variable_R1 + i - 1] = internal.age_R1[i - 1] + R1[i - 1] - internal.O_R1[i - 1] + internal.recov_1[i - 1] - internal.age_R1[i + 1 - 1];
     }
@@ -1924,7 +1938,7 @@ public:
       internal.inf_4[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_S[i - 1] - internal.inf_1[i - 1] - internal.inf_2[i - 1] - internal.inf_3[i - 1]), (shared->rho_pri * internal.FOI4a[i - 1] / (real_type) (shared->rho_pri * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
     }
     real_type Mwt_inf4 = (Mwt_FOI4 / (real_type) (shared->DT * delta + Mwt_FOI4)) * (O_Mwt_S - Mwt_inf1 - Mwt_inf2 - Mwt_inf3);
-    state_next[29] = exposed1 + Y1T - exposed1 * shared->DT / (real_type) shared->incub;
+    state_next[30] = exposed1 + Y1T - exposed1 * shared->DT / (real_type) shared->incub;
     for (int i = 1; i <= shared->N_age; ++i) {
       state_next[shared->offset_variable_I124 + i - 1] = internal.age_I124[i - 1] + I124[i - 1] - internal.O_I124[i - 1] + internal.inf_124[i - 1] - internal.age_I124[i + 1 - 1];
     }
@@ -1958,8 +1972,8 @@ public:
     for (int i = 1; i <= shared->N_age; ++i) {
       state_next[shared->offset_variable_I42 + i - 1] = internal.age_I42[i - 1] + I42[i - 1] - internal.O_I42[i - 1] + internal.inf_42[i - 1] - internal.age_I42[i + 1 - 1];
     }
-    state_next[10] = Mwt_inf3 + Mwt_E3 - O_Mwt_E3;
-    state_next[25] = Y1T;
+    state_next[11] = Mwt_inf3 + Mwt_E3 - O_Mwt_E3;
+    state_next[26] = Y1T;
     real_type Y2T = odin_sum1<real_type>(internal.Y2.data(), 0, shared->dim_Y2) / (real_type) NT;
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.Y3[i - 1] = shared->phi_pri[2] * (1 + shared->dis_pri[2] * shared->phi_ed) * internal.inf_3[i - 1] + shared->phi_sec[2] * (1 + shared->dis_sec[2] * shared->phi_ed) * (internal.inf_13[i - 1] + internal.inf_23[i - 1] + internal.inf_43[i - 1]) + shared->phi_tert[2] * (1 + shared->dis_tert[2] * shared->phi_ed) * (internal.inf_123[i - 1] + internal.inf_143[i - 1] + internal.inf_243[i - 1]) + shared->phi_quart[2] * (1 + shared->dis_quart[2] * shared->phi_ed) * internal.inf_1243[i - 1];
@@ -1988,7 +2002,7 @@ public:
       int j = 4;
       internal.disease_sero[i - 1 + shared->dim_disease_sero_1 * (j - 1)] = shared->dis_pri[3] * internal.inf_4[i - 1] + shared->dis_sec[3] * (internal.inf_14[i - 1] + internal.inf_24[i - 1] + internal.inf_34[i - 1]) + shared->dis_tert[3] * (internal.inf_124[i - 1] + internal.inf_134[i - 1] + internal.inf_234[i - 1]) + shared->dis_quart[3] * internal.inf_1234[i - 1];
     }
-    state_next[30] = exposed2 + Y2T - exposed2 * shared->DT / (real_type) shared->incub;
+    state_next[31] = exposed2 + Y2T - exposed2 * shared->DT / (real_type) shared->incub;
     for (int i = 1; i <= shared->N_age; ++i) {
       state_next[shared->offset_variable_I14 + i - 1] = internal.age_I14[i - 1] + I14[i - 1] - internal.O_I14[i - 1] + internal.inf_14[i - 1] - internal.age_I14[i + 1 - 1];
     }
@@ -2004,9 +2018,9 @@ public:
     for (int i = 1; i <= shared->N_age; ++i) {
       state_next[shared->offset_variable_I43 + i - 1] = internal.age_I43[i - 1] + I43[i - 1] - internal.O_I43[i - 1] + internal.inf_43[i - 1] - internal.age_I43[i + 1 - 1];
     }
-    state_next[11] = Mwt_inf4 + Mwt_E4 - O_Mwt_E4;
+    state_next[12] = Mwt_inf4 + Mwt_E4 - O_Mwt_E4;
     state_next[3] = CUR_ISO_WEEK;
-    state_next[26] = Y2T;
+    state_next[27] = Y2T;
     real_type Y3T = odin_sum1<real_type>(internal.Y3.data(), 0, shared->dim_Y3) / (real_type) NT;
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.Y4[i - 1] = shared->phi_pri[3] * (1 + shared->dis_pri[3] * shared->phi_ed) * internal.inf_4[i - 1] + shared->phi_sec[3] * (1 + shared->dis_sec[3] * shared->phi_ed) * (internal.inf_14[i - 1] + internal.inf_24[i - 1] + internal.inf_34[i - 1]) + shared->phi_tert[3] * (1 + shared->dis_tert[3] * shared->phi_ed) * (internal.inf_124[i - 1] + internal.inf_134[i - 1] + internal.inf_234[i - 1]) + shared->phi_quart[3] * (1 + shared->dis_quart[3] * shared->phi_ed) * internal.inf_1234[i - 1];
@@ -2021,21 +2035,21 @@ public:
       internal.out_iso_update_switch[i - 1] = ((CUR_ISO_WEEK == i) && (DATA_PERIOD_ACTIVE == 1) && (cur_data_week <= shared->DATA_NUM_WEEKS) ? 1 : 0);
     }
     state_next[2] = (DATA_PERIOD_ACTIVE == 0 ? DATA_DAY : DATA_DAY + shared->DT);
-    state_next[31] = exposed3 + Y3T - exposed3 * shared->DT / (real_type) shared->incub;
+    state_next[32] = exposed3 + Y3T - exposed3 * shared->DT / (real_type) shared->incub;
     for (int i = 1; i <= shared->N_age; ++i) {
       state_next[shared->offset_variable_I4 + i - 1] = internal.age_I4[i - 1] + I4[i - 1] - internal.O_I4[i - 1] + internal.inf_4[i - 1] - internal.age_I4[i + 1 - 1];
     }
-    state_next[27] = Y3T;
+    state_next[28] = Y3T;
     real_type Y4T = odin_sum1<real_type>(internal.Y4.data(), 0, shared->dim_Y4) / (real_type) NT;
     real_type disease_tot = odin_sum1<real_type>(internal.disease.data(), 0, shared->dim_disease);
-    state_next[32] = exposed4 + Y4T - exposed4 * shared->DT / (real_type) shared->incub;
+    state_next[33] = exposed4 + Y4T - exposed4 * shared->DT / (real_type) shared->incub;
     for (int i = 1; i <= shared->N_age; ++i) {
       state_next[shared->offset_variable_out_disease_age + i - 1] = out_disease_age[i - 1] + (((DATA_PERIOD_ACTIVE == 1) && (cur_data_week <= shared->DATA_NUM_WEEKS) ? internal.disease[i - 1] : 0));
     }
     for (int i = 1; i <= shared->N_age; ++i) {
       state_next[shared->offset_variable_out_disease_cur_week + i - 1] = ((fmodr<real_type>(cur_data_day, 7) == 0 ? 0 : out_disease_cur_week[i - 1])) + internal.disease[i - 1];
     }
-    state_next[28] = Y4T;
+    state_next[29] = Y4T;
     for (int i = 1; i <= 53; ++i) {
       state_next[shared->offset_variable_out_disease_isowk + i - 1] = out_disease_isowk[i - 1] + internal.out_iso_update_switch[i - 1] * disease_tot;
     }
@@ -2903,58 +2917,58 @@ dust::pars_type<model> dust_pars<model>(cpp11::list user) {
   for (int i = 1; i <= shared->N_age; ++i) {
     shared->initial_out_seronegative[i - 1] = 0;
   }
-  shared->offset_variable_I1 = shared->dim_S + 43;
-  shared->offset_variable_I12 = shared->dim_I1 + shared->dim_I2 + shared->dim_I21 + shared->dim_I3 + shared->dim_I31 + shared->dim_I4 + shared->dim_I41 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I123 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I132 + shared->dim_I14 + shared->dim_I142 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I1234 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I124 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I13 + shared->dim_I132 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I1243 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I13 = shared->dim_I1 + shared->dim_I12 + shared->dim_I2 + shared->dim_I21 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I132 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I134 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I13 + shared->dim_I132 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I1342 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I14 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I142 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I132 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I143 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I13 + shared->dim_I132 + shared->dim_I14 + shared->dim_I142 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I2 = shared->dim_I1 + shared->dim_S + 43;
-  shared->offset_variable_I21 = shared->dim_I1 + shared->dim_I2 + shared->dim_I3 + shared->dim_I4 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I23 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I2 + shared->dim_I21 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I231 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I24 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I234 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I2341 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I24 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I241 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I243 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I13 + shared->dim_I132 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I3 = shared->dim_I1 + shared->dim_I2 + shared->dim_S + 43;
-  shared->offset_variable_I31 = shared->dim_I1 + shared->dim_I2 + shared->dim_I21 + shared->dim_I3 + shared->dim_I4 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I32 = shared->dim_I1 + shared->dim_I12 + shared->dim_I2 + shared->dim_I21 + shared->dim_I3 + shared->dim_I31 + shared->dim_I4 + shared->dim_I41 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I34 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I24 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I341 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I342 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I132 + shared->dim_I14 + shared->dim_I142 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I4 = shared->dim_I1 + shared->dim_I2 + shared->dim_I3 + shared->dim_S + 43;
-  shared->offset_variable_I41 = shared->dim_I1 + shared->dim_I2 + shared->dim_I21 + shared->dim_I3 + shared->dim_I31 + shared->dim_I4 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I42 = shared->dim_I1 + shared->dim_I12 + shared->dim_I2 + shared->dim_I21 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I4 + shared->dim_I41 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_I43 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_Ntotal_out = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I1234 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R1234 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_out_disease_age = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I1234 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_Ntotal_out + shared->dim_out_disease_cur_week + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R1234 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_out_disease_cur_week = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I1234 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_Ntotal_out + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R1234 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_out_disease_isowk = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I1234 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_Ntotal_out + shared->dim_out_disease_age + shared->dim_out_disease_cur_week + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R1234 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_out_disease_tot_yr = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I1234 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_Ntotal_out + shared->dim_out_disease_age + shared->dim_out_disease_cur_week + shared->dim_out_disease_isowk + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R1234 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_R1 = shared->dim_I1 + shared->dim_I2 + shared->dim_I3 + shared->dim_I4 + shared->dim_S + 43;
-  shared->offset_variable_R12 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I24 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_R123 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_R1234 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I1234 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_R124 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_R13 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I24 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_R134 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R124 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_R14 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I24 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_R2 = shared->dim_I1 + shared->dim_I2 + shared->dim_I3 + shared->dim_I4 + shared->dim_R1 + shared->dim_S + 43;
-  shared->offset_variable_R23 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I24 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_R234 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_R24 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I24 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_R3 = shared->dim_I1 + shared->dim_I2 + shared->dim_I3 + shared->dim_I4 + shared->dim_R1 + shared->dim_R2 + shared->dim_S + 43;
-  shared->offset_variable_R34 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I24 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 43;
-  shared->offset_variable_R4 = shared->dim_I1 + shared->dim_I2 + shared->dim_I3 + shared->dim_I4 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_S + 43;
+  shared->offset_variable_I1 = shared->dim_S + 44;
+  shared->offset_variable_I12 = shared->dim_I1 + shared->dim_I2 + shared->dim_I21 + shared->dim_I3 + shared->dim_I31 + shared->dim_I4 + shared->dim_I41 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I123 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I132 + shared->dim_I14 + shared->dim_I142 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I1234 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I124 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I13 + shared->dim_I132 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I1243 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I13 = shared->dim_I1 + shared->dim_I12 + shared->dim_I2 + shared->dim_I21 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I132 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I134 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I13 + shared->dim_I132 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I1342 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I14 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I142 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I132 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I143 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I13 + shared->dim_I132 + shared->dim_I14 + shared->dim_I142 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I2 = shared->dim_I1 + shared->dim_S + 44;
+  shared->offset_variable_I21 = shared->dim_I1 + shared->dim_I2 + shared->dim_I3 + shared->dim_I4 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I23 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I2 + shared->dim_I21 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I231 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I24 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I234 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I2341 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I24 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I241 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I243 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I13 + shared->dim_I132 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I3 = shared->dim_I1 + shared->dim_I2 + shared->dim_S + 44;
+  shared->offset_variable_I31 = shared->dim_I1 + shared->dim_I2 + shared->dim_I21 + shared->dim_I3 + shared->dim_I4 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I32 = shared->dim_I1 + shared->dim_I12 + shared->dim_I2 + shared->dim_I21 + shared->dim_I3 + shared->dim_I31 + shared->dim_I4 + shared->dim_I41 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I34 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I24 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I341 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I342 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I132 + shared->dim_I14 + shared->dim_I142 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I24 + shared->dim_I241 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I4 = shared->dim_I1 + shared->dim_I2 + shared->dim_I3 + shared->dim_S + 44;
+  shared->offset_variable_I41 = shared->dim_I1 + shared->dim_I2 + shared->dim_I21 + shared->dim_I3 + shared->dim_I31 + shared->dim_I4 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I42 = shared->dim_I1 + shared->dim_I12 + shared->dim_I2 + shared->dim_I21 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I4 + shared->dim_I41 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_I43 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_Ntotal_out = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I1234 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R1234 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_out_disease_age = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I1234 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_Ntotal_out + shared->dim_out_disease_cur_week + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R1234 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_out_disease_cur_week = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I1234 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_Ntotal_out + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R1234 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_out_disease_isowk = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I1234 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_Ntotal_out + shared->dim_out_disease_age + shared->dim_out_disease_cur_week + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R1234 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_out_disease_tot_yr = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I1234 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_Ntotal_out + shared->dim_out_disease_age + shared->dim_out_disease_cur_week + shared->dim_out_disease_isowk + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R1234 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_R1 = shared->dim_I1 + shared->dim_I2 + shared->dim_I3 + shared->dim_I4 + shared->dim_S + 44;
+  shared->offset_variable_R12 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I24 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_R123 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_R1234 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I1234 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_R124 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_R13 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I24 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_R134 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R124 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_R14 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I24 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_R2 = shared->dim_I1 + shared->dim_I2 + shared->dim_I3 + shared->dim_I4 + shared->dim_R1 + shared->dim_S + 44;
+  shared->offset_variable_R23 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I24 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_R234 = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I124 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_R24 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I24 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_R3 = shared->dim_I1 + shared->dim_I2 + shared->dim_I3 + shared->dim_I4 + shared->dim_R1 + shared->dim_R2 + shared->dim_S + 44;
+  shared->offset_variable_R34 = shared->dim_I1 + shared->dim_I12 + shared->dim_I13 + shared->dim_I14 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I24 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_R1 + shared->dim_R12 + shared->dim_R13 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R24 + shared->dim_R3 + shared->dim_R4 + shared->dim_S + 44;
+  shared->offset_variable_R4 = shared->dim_I1 + shared->dim_I2 + shared->dim_I3 + shared->dim_I4 + shared->dim_R1 + shared->dim_R2 + shared->dim_R3 + shared->dim_S + 44;
   for (int i = 1; i <= 15; ++i) {
     shared->agec[i - 1] = 1;
   }
@@ -3030,22 +3044,22 @@ dust::pars_type<model> dust_pars<model>(cpp11::list user) {
   for (int i = 1; i <= shared->N_age; ++i) {
     shared->mean_age[i - 1] = (static_cast<real_type>(0.75) * shared->ageb[i - 1] + static_cast<real_type>(0.25) * shared->ageb[i + 1 - 1]);
   }
+  shared->Beta_fT0 = NA_REAL;
   shared->Beta_hm_max = NA_REAL;
   shared->Beta_mh_max = NA_REAL;
   shared->Beta_pT0d = NA_REAL;
   shared->Beta_pTm = NA_REAL;
-  shared->Beta_T0 = NA_REAL;
-  shared->Beta_Tw = NA_REAL;
+  shared->Beta_Tm = NA_REAL;
   shared->CALIB_YEAR = NA_REAL;
   shared->DATA_NUM_WEEKS = NA_REAL;
   shared->DATA_REPORTING_DELAY = NA_REAL;
   shared->DATA_SERO_YEAR = NA_REAL;
   shared->DATA_START_YEAR = NA_REAL;
+  shared->delta_fT0 = NA_REAL;
   shared->delta_p = NA_REAL;
   shared->delta_pT0d = NA_REAL;
   shared->delta_pTm = NA_REAL;
-  shared->delta_T0 = NA_REAL;
-  shared->delta_Tw = NA_REAL;
+  shared->delta_Tm = NA_REAL;
   shared->dur_cross_prot = NA_REAL;
   shared->eip = NA_REAL;
   shared->epsilon = NA_REAL;
@@ -3058,6 +3072,7 @@ dust::pars_type<model> dust_pars<model>(cpp11::list user) {
   shared->kappa = NA_REAL;
   shared->LAST_CLIM_YEAR = NA_REAL;
   shared->LAST_YEAR = NA_REAL;
+  shared->max_rain = NA_REAL;
   shared->Mwt = NA_REAL;
   shared->N_sim = NA_REAL;
   shared->NTP = NA_INTEGER;
@@ -3069,23 +3084,25 @@ dust::pars_type<model> dust_pars<model>(cpp11::list user) {
   shared->Rel_R04 = NA_REAL;
   shared->REPEAT_CLIM_4YEARS = NA_REAL;
   shared->Rm = NA_REAL;
+  shared->sat_rain = NA_REAL;
   shared->sigma = NA_REAL;
+  shared->tau_rain = NA_REAL;
+  shared->Beta_fT0 = user_get_scalar<real_type>(user, "Beta_fT0", shared->Beta_fT0, NA_REAL, NA_REAL);
   shared->Beta_hm_max = user_get_scalar<real_type>(user, "Beta_hm_max", shared->Beta_hm_max, NA_REAL, NA_REAL);
   shared->Beta_mh_max = user_get_scalar<real_type>(user, "Beta_mh_max", shared->Beta_mh_max, NA_REAL, NA_REAL);
   shared->Beta_pT0d = user_get_scalar<real_type>(user, "Beta_pT0d", shared->Beta_pT0d, NA_REAL, NA_REAL);
   shared->Beta_pTm = user_get_scalar<real_type>(user, "Beta_pTm", shared->Beta_pTm, NA_REAL, NA_REAL);
-  shared->Beta_T0 = user_get_scalar<real_type>(user, "Beta_T0", shared->Beta_T0, NA_REAL, NA_REAL);
-  shared->Beta_Tw = user_get_scalar<real_type>(user, "Beta_Tw", shared->Beta_Tw, NA_REAL, NA_REAL);
+  shared->Beta_Tm = user_get_scalar<real_type>(user, "Beta_Tm", shared->Beta_Tm, NA_REAL, NA_REAL);
   shared->CALIB_YEAR = user_get_scalar<real_type>(user, "CALIB_YEAR", shared->CALIB_YEAR, NA_REAL, NA_REAL);
   shared->DATA_NUM_WEEKS = user_get_scalar<real_type>(user, "DATA_NUM_WEEKS", shared->DATA_NUM_WEEKS, NA_REAL, NA_REAL);
   shared->DATA_REPORTING_DELAY = user_get_scalar<real_type>(user, "DATA_REPORTING_DELAY", shared->DATA_REPORTING_DELAY, NA_REAL, NA_REAL);
   shared->DATA_SERO_YEAR = user_get_scalar<real_type>(user, "DATA_SERO_YEAR", shared->DATA_SERO_YEAR, NA_REAL, NA_REAL);
   shared->DATA_START_YEAR = user_get_scalar<real_type>(user, "DATA_START_YEAR", shared->DATA_START_YEAR, NA_REAL, NA_REAL);
+  shared->delta_fT0 = user_get_scalar<real_type>(user, "delta_fT0", shared->delta_fT0, NA_REAL, NA_REAL);
   shared->delta_p = user_get_scalar<real_type>(user, "delta_p", shared->delta_p, NA_REAL, NA_REAL);
   shared->delta_pT0d = user_get_scalar<real_type>(user, "delta_pT0d", shared->delta_pT0d, NA_REAL, NA_REAL);
   shared->delta_pTm = user_get_scalar<real_type>(user, "delta_pTm", shared->delta_pTm, NA_REAL, NA_REAL);
-  shared->delta_T0 = user_get_scalar<real_type>(user, "delta_T0", shared->delta_T0, NA_REAL, NA_REAL);
-  shared->delta_Tw = user_get_scalar<real_type>(user, "delta_Tw", shared->delta_Tw, NA_REAL, NA_REAL);
+  shared->delta_Tm = user_get_scalar<real_type>(user, "delta_Tm", shared->delta_Tm, NA_REAL, NA_REAL);
   shared->dur_cross_prot = user_get_scalar<real_type>(user, "dur_cross_prot", shared->dur_cross_prot, NA_REAL, NA_REAL);
   shared->eip = user_get_scalar<real_type>(user, "eip", shared->eip, NA_REAL, NA_REAL);
   shared->epsilon = user_get_scalar<real_type>(user, "epsilon", shared->epsilon, NA_REAL, NA_REAL);
@@ -3098,6 +3115,7 @@ dust::pars_type<model> dust_pars<model>(cpp11::list user) {
   shared->kappa = user_get_scalar<real_type>(user, "kappa", shared->kappa, NA_REAL, NA_REAL);
   shared->LAST_CLIM_YEAR = user_get_scalar<real_type>(user, "LAST_CLIM_YEAR", shared->LAST_CLIM_YEAR, NA_REAL, NA_REAL);
   shared->LAST_YEAR = user_get_scalar<real_type>(user, "LAST_YEAR", shared->LAST_YEAR, NA_REAL, NA_REAL);
+  shared->max_rain = user_get_scalar<real_type>(user, "max_rain", shared->max_rain, NA_REAL, NA_REAL);
   shared->Mwt = user_get_scalar<real_type>(user, "Mwt", shared->Mwt, NA_REAL, NA_REAL);
   shared->N_sim = user_get_scalar<real_type>(user, "N_sim", shared->N_sim, NA_REAL, NA_REAL);
   shared->NTP = user_get_scalar<int>(user, "NTP", shared->NTP, NA_INTEGER, NA_INTEGER);
@@ -3109,14 +3127,17 @@ dust::pars_type<model> dust_pars<model>(cpp11::list user) {
   shared->Rel_R04 = user_get_scalar<real_type>(user, "Rel_R04", shared->Rel_R04, NA_REAL, NA_REAL);
   shared->REPEAT_CLIM_4YEARS = user_get_scalar<real_type>(user, "REPEAT_CLIM_4YEARS", shared->REPEAT_CLIM_4YEARS, NA_REAL, NA_REAL);
   shared->Rm = user_get_scalar<real_type>(user, "Rm", shared->Rm, NA_REAL, NA_REAL);
+  shared->sat_rain = user_get_scalar<real_type>(user, "sat_rain", shared->sat_rain, NA_REAL, NA_REAL);
   shared->sigma = user_get_scalar<real_type>(user, "sigma", shared->sigma, NA_REAL, NA_REAL);
+  shared->tau_rain = user_get_scalar<real_type>(user, "tau_rain", shared->tau_rain, NA_REAL, NA_REAL);
+  shared->accum_rain_eq = 1 / (real_type) (1 + 1 / (real_type) shared->sat_rain + 1 / (real_type) (shared->max_rain * shared->max_rain));
   shared->Beta_hm_mean = static_cast<real_type>(0.85999999999999999) * shared->Beta_hm_max;
   shared->Beta_mh_mean = static_cast<real_type>(0.85999999999999999) * shared->Beta_mh_max;
   shared->Beta_pT0 = shared->Beta_pTm + shared->Beta_pT0d;
-  shared->Beta_Tm = shared->Beta_T0 + shared->Beta_Tw;
+  shared->Beta_T0 = shared->Beta_Tm * shared->Beta_fT0;
   shared->DATA_NUM_YEARS = dust::math::floor(shared->DATA_NUM_WEEKS / (real_type) 52);
   shared->delta_pT0 = shared->delta_pTm + shared->delta_pT0d;
-  shared->delta_Tm = shared->delta_T0 + shared->delta_Tw;
+  shared->delta_T0 = shared->delta_Tm * shared->delta_fT0;
   shared->dim_climate_d_1 = shared->NTP;
   shared->dim_climate_d_2 = 2;
   shared->dis_pri = user_get_array_fixed<real_type, 1>(user, "dis_pri", shared->dis_pri, {shared->dim_dis_pri}, NA_REAL, NA_REAL);
@@ -3142,6 +3163,7 @@ dust::pars_type<model> dust_pars<model>(cpp11::list user) {
   shared->dim_out_cases_yr_switch = shared->DATA_NUM_YEARS;
   shared->dim_out_disease_tot_yr = shared->DATA_NUM_YEARS;
   shared->DOW_START0 = fmodr<real_type>((1 + 5 * (fmodr<real_type>((shared->START_YEAR - 1), 4)) + 4 * (fmodr<real_type>((shared->START_YEAR - 1), 100)) + 6 * (fmodr<real_type>((shared->START_YEAR - 1), 400))), 7);
+  shared->initial_accum_rain = shared->accum_rain_eq;
   shared->Kc_mean = shared->Mwt * shared->delta0 * (dust::math::pow<real_type>((shared->epsilon * (shared->gamma - shared->delta0) / (real_type) (shared->delta0 * shared->sigma) - 1), (- 1 / (real_type) shared->omega))) / (real_type) shared->epsilon;
   shared->LEAP_YEAR = fmodr<real_type>(shared->START_YEAR, 4);
   for (int i = 1; i <= 4; ++i) {
@@ -3158,8 +3180,7 @@ dust::pars_type<model> dust_pars<model>(cpp11::list user) {
   for (int i = 1; i <= shared->DATA_NUM_YEARS; ++i) {
     shared->initial_out_disease_tot_yr[i - 1] = 0;
   }
-  shared->Kc = shared->Kc_mean;
-  shared->offset_variable_out_seronegative = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I1234 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_Ntotal_out + shared->dim_out_disease_age + shared->dim_out_disease_cur_week + shared->dim_out_disease_isowk + shared->dim_out_disease_tot_yr + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R1234 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 43;
+  shared->offset_variable_out_seronegative = shared->dim_I1 + shared->dim_I12 + shared->dim_I123 + shared->dim_I1234 + shared->dim_I124 + shared->dim_I1243 + shared->dim_I13 + shared->dim_I132 + shared->dim_I134 + shared->dim_I1342 + shared->dim_I14 + shared->dim_I142 + shared->dim_I143 + shared->dim_I2 + shared->dim_I21 + shared->dim_I23 + shared->dim_I231 + shared->dim_I234 + shared->dim_I2341 + shared->dim_I24 + shared->dim_I241 + shared->dim_I243 + shared->dim_I3 + shared->dim_I31 + shared->dim_I32 + shared->dim_I34 + shared->dim_I341 + shared->dim_I342 + shared->dim_I4 + shared->dim_I41 + shared->dim_I42 + shared->dim_I43 + shared->dim_Ntotal_out + shared->dim_out_disease_age + shared->dim_out_disease_cur_week + shared->dim_out_disease_isowk + shared->dim_out_disease_tot_yr + shared->dim_R1 + shared->dim_R12 + shared->dim_R123 + shared->dim_R1234 + shared->dim_R124 + shared->dim_R13 + shared->dim_R134 + shared->dim_R14 + shared->dim_R2 + shared->dim_R23 + shared->dim_R234 + shared->dim_R24 + shared->dim_R3 + shared->dim_R34 + shared->dim_R4 + shared->dim_S + 44;
   for (int i = 1; i <= 4; ++i) {
     shared->phi_pri[i - 1] = shared->phi_scale[i - 1];
   }
@@ -3270,8 +3291,8 @@ dust::pars_type<model> dust_pars<model>(cpp11::list user) {
 template <>
 cpp11::sexp dust_info<model>(const dust::pars_type<model>& pars) {
   const std::shared_ptr<const model::shared_type> shared = pars.shared;
-  cpp11::writable::strings nms({"out_CUR_DOW", "out_year", "DATA_DAY", "out_curisoweek", "out_cur_clim_day", "out_R0agescale", "Lwt", "Mwt_S", "Mwt_E1", "Mwt_E2", "Mwt_E3", "Mwt_E4", "Mwt_I1", "Mwt_I2", "Mwt_I3", "Mwt_I4", "R0t_1", "R0t_2", "R0t_3", "R0t_4", "out_temp", "out_delta", "out_beta", "out_Mwt", "NT_out", "Y1T_out", "Y2T_out", "Y3T_out", "Y4T_out", "exposed1", "exposed2", "exposed3", "exposed4", "infectious1", "infectious2", "infectious3", "infectious4", "inc_FOI1", "inc_FOI2", "inc_FOI3", "inc_FOI4", "tot_inc_FOI", "cur_tot_FOI", "S", "I1", "I2", "I3", "I4", "R1", "R2", "R3", "R4", "I21", "I31", "I41", "I12", "I32", "I42", "I13", "I23", "I43", "I14", "I24", "I34", "R12", "R13", "R14", "R23", "R24", "R34", "I231", "I241", "I341", "I132", "I142", "I342", "I123", "I143", "I243", "I124", "I134", "I234", "R123", "R124", "R134", "R234", "I2341", "I1342", "I1243", "I1234", "R1234", "Ntotal_out", "out_disease_cur_week", "out_disease_age", "out_disease_isowk", "out_disease_tot_yr", "out_seronegative"});
-  cpp11::writable::list dim(97);
+  cpp11::writable::strings nms({"out_CUR_DOW", "out_year", "DATA_DAY", "out_curisoweek", "out_cur_clim_day", "accum_rain", "out_R0agescale", "Lwt", "Mwt_S", "Mwt_E1", "Mwt_E2", "Mwt_E3", "Mwt_E4", "Mwt_I1", "Mwt_I2", "Mwt_I3", "Mwt_I4", "R0t_1", "R0t_2", "R0t_3", "R0t_4", "out_temp", "out_delta", "out_beta", "out_Mwt", "NT_out", "Y1T_out", "Y2T_out", "Y3T_out", "Y4T_out", "exposed1", "exposed2", "exposed3", "exposed4", "infectious1", "infectious2", "infectious3", "infectious4", "inc_FOI1", "inc_FOI2", "inc_FOI3", "inc_FOI4", "tot_inc_FOI", "cur_tot_FOI", "S", "I1", "I2", "I3", "I4", "R1", "R2", "R3", "R4", "I21", "I31", "I41", "I12", "I32", "I42", "I13", "I23", "I43", "I14", "I24", "I34", "R12", "R13", "R14", "R23", "R24", "R34", "I231", "I241", "I341", "I132", "I142", "I342", "I123", "I143", "I243", "I124", "I134", "I234", "R123", "R124", "R134", "R234", "I2341", "I1342", "I1243", "I1234", "R1234", "Ntotal_out", "out_disease_cur_week", "out_disease_age", "out_disease_isowk", "out_disease_tot_yr", "out_seronegative"});
+  cpp11::writable::list dim(98);
   dim[0] = cpp11::writable::integers({1});
   dim[1] = cpp11::writable::integers({1});
   dim[2] = cpp11::writable::integers({1});
@@ -3315,62 +3336,63 @@ cpp11::sexp dust_info<model>(const dust::pars_type<model>& pars) {
   dim[40] = cpp11::writable::integers({1});
   dim[41] = cpp11::writable::integers({1});
   dim[42] = cpp11::writable::integers({1});
-  dim[43] = cpp11::writable::integers({shared->dim_S});
-  dim[44] = cpp11::writable::integers({shared->dim_I1});
-  dim[45] = cpp11::writable::integers({shared->dim_I2});
-  dim[46] = cpp11::writable::integers({shared->dim_I3});
-  dim[47] = cpp11::writable::integers({shared->dim_I4});
-  dim[48] = cpp11::writable::integers({shared->dim_R1});
-  dim[49] = cpp11::writable::integers({shared->dim_R2});
-  dim[50] = cpp11::writable::integers({shared->dim_R3});
-  dim[51] = cpp11::writable::integers({shared->dim_R4});
-  dim[52] = cpp11::writable::integers({shared->dim_I21});
-  dim[53] = cpp11::writable::integers({shared->dim_I31});
-  dim[54] = cpp11::writable::integers({shared->dim_I41});
-  dim[55] = cpp11::writable::integers({shared->dim_I12});
-  dim[56] = cpp11::writable::integers({shared->dim_I32});
-  dim[57] = cpp11::writable::integers({shared->dim_I42});
-  dim[58] = cpp11::writable::integers({shared->dim_I13});
-  dim[59] = cpp11::writable::integers({shared->dim_I23});
-  dim[60] = cpp11::writable::integers({shared->dim_I43});
-  dim[61] = cpp11::writable::integers({shared->dim_I14});
-  dim[62] = cpp11::writable::integers({shared->dim_I24});
-  dim[63] = cpp11::writable::integers({shared->dim_I34});
-  dim[64] = cpp11::writable::integers({shared->dim_R12});
-  dim[65] = cpp11::writable::integers({shared->dim_R13});
-  dim[66] = cpp11::writable::integers({shared->dim_R14});
-  dim[67] = cpp11::writable::integers({shared->dim_R23});
-  dim[68] = cpp11::writable::integers({shared->dim_R24});
-  dim[69] = cpp11::writable::integers({shared->dim_R34});
-  dim[70] = cpp11::writable::integers({shared->dim_I231});
-  dim[71] = cpp11::writable::integers({shared->dim_I241});
-  dim[72] = cpp11::writable::integers({shared->dim_I341});
-  dim[73] = cpp11::writable::integers({shared->dim_I132});
-  dim[74] = cpp11::writable::integers({shared->dim_I142});
-  dim[75] = cpp11::writable::integers({shared->dim_I342});
-  dim[76] = cpp11::writable::integers({shared->dim_I123});
-  dim[77] = cpp11::writable::integers({shared->dim_I143});
-  dim[78] = cpp11::writable::integers({shared->dim_I243});
-  dim[79] = cpp11::writable::integers({shared->dim_I124});
-  dim[80] = cpp11::writable::integers({shared->dim_I134});
-  dim[81] = cpp11::writable::integers({shared->dim_I234});
-  dim[82] = cpp11::writable::integers({shared->dim_R123});
-  dim[83] = cpp11::writable::integers({shared->dim_R124});
-  dim[84] = cpp11::writable::integers({shared->dim_R134});
-  dim[85] = cpp11::writable::integers({shared->dim_R234});
-  dim[86] = cpp11::writable::integers({shared->dim_I2341});
-  dim[87] = cpp11::writable::integers({shared->dim_I1342});
-  dim[88] = cpp11::writable::integers({shared->dim_I1243});
-  dim[89] = cpp11::writable::integers({shared->dim_I1234});
-  dim[90] = cpp11::writable::integers({shared->dim_R1234});
-  dim[91] = cpp11::writable::integers({shared->dim_Ntotal_out});
-  dim[92] = cpp11::writable::integers({shared->dim_out_disease_cur_week});
-  dim[93] = cpp11::writable::integers({shared->dim_out_disease_age});
-  dim[94] = cpp11::writable::integers({shared->dim_out_disease_isowk});
-  dim[95] = cpp11::writable::integers({shared->dim_out_disease_tot_yr});
-  dim[96] = cpp11::writable::integers({shared->dim_out_seronegative});
+  dim[43] = cpp11::writable::integers({1});
+  dim[44] = cpp11::writable::integers({shared->dim_S});
+  dim[45] = cpp11::writable::integers({shared->dim_I1});
+  dim[46] = cpp11::writable::integers({shared->dim_I2});
+  dim[47] = cpp11::writable::integers({shared->dim_I3});
+  dim[48] = cpp11::writable::integers({shared->dim_I4});
+  dim[49] = cpp11::writable::integers({shared->dim_R1});
+  dim[50] = cpp11::writable::integers({shared->dim_R2});
+  dim[51] = cpp11::writable::integers({shared->dim_R3});
+  dim[52] = cpp11::writable::integers({shared->dim_R4});
+  dim[53] = cpp11::writable::integers({shared->dim_I21});
+  dim[54] = cpp11::writable::integers({shared->dim_I31});
+  dim[55] = cpp11::writable::integers({shared->dim_I41});
+  dim[56] = cpp11::writable::integers({shared->dim_I12});
+  dim[57] = cpp11::writable::integers({shared->dim_I32});
+  dim[58] = cpp11::writable::integers({shared->dim_I42});
+  dim[59] = cpp11::writable::integers({shared->dim_I13});
+  dim[60] = cpp11::writable::integers({shared->dim_I23});
+  dim[61] = cpp11::writable::integers({shared->dim_I43});
+  dim[62] = cpp11::writable::integers({shared->dim_I14});
+  dim[63] = cpp11::writable::integers({shared->dim_I24});
+  dim[64] = cpp11::writable::integers({shared->dim_I34});
+  dim[65] = cpp11::writable::integers({shared->dim_R12});
+  dim[66] = cpp11::writable::integers({shared->dim_R13});
+  dim[67] = cpp11::writable::integers({shared->dim_R14});
+  dim[68] = cpp11::writable::integers({shared->dim_R23});
+  dim[69] = cpp11::writable::integers({shared->dim_R24});
+  dim[70] = cpp11::writable::integers({shared->dim_R34});
+  dim[71] = cpp11::writable::integers({shared->dim_I231});
+  dim[72] = cpp11::writable::integers({shared->dim_I241});
+  dim[73] = cpp11::writable::integers({shared->dim_I341});
+  dim[74] = cpp11::writable::integers({shared->dim_I132});
+  dim[75] = cpp11::writable::integers({shared->dim_I142});
+  dim[76] = cpp11::writable::integers({shared->dim_I342});
+  dim[77] = cpp11::writable::integers({shared->dim_I123});
+  dim[78] = cpp11::writable::integers({shared->dim_I143});
+  dim[79] = cpp11::writable::integers({shared->dim_I243});
+  dim[80] = cpp11::writable::integers({shared->dim_I124});
+  dim[81] = cpp11::writable::integers({shared->dim_I134});
+  dim[82] = cpp11::writable::integers({shared->dim_I234});
+  dim[83] = cpp11::writable::integers({shared->dim_R123});
+  dim[84] = cpp11::writable::integers({shared->dim_R124});
+  dim[85] = cpp11::writable::integers({shared->dim_R134});
+  dim[86] = cpp11::writable::integers({shared->dim_R234});
+  dim[87] = cpp11::writable::integers({shared->dim_I2341});
+  dim[88] = cpp11::writable::integers({shared->dim_I1342});
+  dim[89] = cpp11::writable::integers({shared->dim_I1243});
+  dim[90] = cpp11::writable::integers({shared->dim_I1234});
+  dim[91] = cpp11::writable::integers({shared->dim_R1234});
+  dim[92] = cpp11::writable::integers({shared->dim_Ntotal_out});
+  dim[93] = cpp11::writable::integers({shared->dim_out_disease_cur_week});
+  dim[94] = cpp11::writable::integers({shared->dim_out_disease_age});
+  dim[95] = cpp11::writable::integers({shared->dim_out_disease_isowk});
+  dim[96] = cpp11::writable::integers({shared->dim_out_disease_tot_yr});
+  dim[97] = cpp11::writable::integers({shared->dim_out_seronegative});
   dim.names() = nms;
-  cpp11::writable::list index(97);
+  cpp11::writable::list index(98);
   index[0] = cpp11::writable::integers({1});
   index[1] = cpp11::writable::integers({2});
   index[2] = cpp11::writable::integers({3});
@@ -3414,60 +3436,61 @@ cpp11::sexp dust_info<model>(const dust::pars_type<model>& pars) {
   index[40] = cpp11::writable::integers({41});
   index[41] = cpp11::writable::integers({42});
   index[42] = cpp11::writable::integers({43});
-  index[43] = integer_sequence(44, shared->dim_S);
-  index[44] = integer_sequence(shared->offset_variable_I1 + 1, shared->dim_I1);
-  index[45] = integer_sequence(shared->offset_variable_I2 + 1, shared->dim_I2);
-  index[46] = integer_sequence(shared->offset_variable_I3 + 1, shared->dim_I3);
-  index[47] = integer_sequence(shared->offset_variable_I4 + 1, shared->dim_I4);
-  index[48] = integer_sequence(shared->offset_variable_R1 + 1, shared->dim_R1);
-  index[49] = integer_sequence(shared->offset_variable_R2 + 1, shared->dim_R2);
-  index[50] = integer_sequence(shared->offset_variable_R3 + 1, shared->dim_R3);
-  index[51] = integer_sequence(shared->offset_variable_R4 + 1, shared->dim_R4);
-  index[52] = integer_sequence(shared->offset_variable_I21 + 1, shared->dim_I21);
-  index[53] = integer_sequence(shared->offset_variable_I31 + 1, shared->dim_I31);
-  index[54] = integer_sequence(shared->offset_variable_I41 + 1, shared->dim_I41);
-  index[55] = integer_sequence(shared->offset_variable_I12 + 1, shared->dim_I12);
-  index[56] = integer_sequence(shared->offset_variable_I32 + 1, shared->dim_I32);
-  index[57] = integer_sequence(shared->offset_variable_I42 + 1, shared->dim_I42);
-  index[58] = integer_sequence(shared->offset_variable_I13 + 1, shared->dim_I13);
-  index[59] = integer_sequence(shared->offset_variable_I23 + 1, shared->dim_I23);
-  index[60] = integer_sequence(shared->offset_variable_I43 + 1, shared->dim_I43);
-  index[61] = integer_sequence(shared->offset_variable_I14 + 1, shared->dim_I14);
-  index[62] = integer_sequence(shared->offset_variable_I24 + 1, shared->dim_I24);
-  index[63] = integer_sequence(shared->offset_variable_I34 + 1, shared->dim_I34);
-  index[64] = integer_sequence(shared->offset_variable_R12 + 1, shared->dim_R12);
-  index[65] = integer_sequence(shared->offset_variable_R13 + 1, shared->dim_R13);
-  index[66] = integer_sequence(shared->offset_variable_R14 + 1, shared->dim_R14);
-  index[67] = integer_sequence(shared->offset_variable_R23 + 1, shared->dim_R23);
-  index[68] = integer_sequence(shared->offset_variable_R24 + 1, shared->dim_R24);
-  index[69] = integer_sequence(shared->offset_variable_R34 + 1, shared->dim_R34);
-  index[70] = integer_sequence(shared->offset_variable_I231 + 1, shared->dim_I231);
-  index[71] = integer_sequence(shared->offset_variable_I241 + 1, shared->dim_I241);
-  index[72] = integer_sequence(shared->offset_variable_I341 + 1, shared->dim_I341);
-  index[73] = integer_sequence(shared->offset_variable_I132 + 1, shared->dim_I132);
-  index[74] = integer_sequence(shared->offset_variable_I142 + 1, shared->dim_I142);
-  index[75] = integer_sequence(shared->offset_variable_I342 + 1, shared->dim_I342);
-  index[76] = integer_sequence(shared->offset_variable_I123 + 1, shared->dim_I123);
-  index[77] = integer_sequence(shared->offset_variable_I143 + 1, shared->dim_I143);
-  index[78] = integer_sequence(shared->offset_variable_I243 + 1, shared->dim_I243);
-  index[79] = integer_sequence(shared->offset_variable_I124 + 1, shared->dim_I124);
-  index[80] = integer_sequence(shared->offset_variable_I134 + 1, shared->dim_I134);
-  index[81] = integer_sequence(shared->offset_variable_I234 + 1, shared->dim_I234);
-  index[82] = integer_sequence(shared->offset_variable_R123 + 1, shared->dim_R123);
-  index[83] = integer_sequence(shared->offset_variable_R124 + 1, shared->dim_R124);
-  index[84] = integer_sequence(shared->offset_variable_R134 + 1, shared->dim_R134);
-  index[85] = integer_sequence(shared->offset_variable_R234 + 1, shared->dim_R234);
-  index[86] = integer_sequence(shared->offset_variable_I2341 + 1, shared->dim_I2341);
-  index[87] = integer_sequence(shared->offset_variable_I1342 + 1, shared->dim_I1342);
-  index[88] = integer_sequence(shared->offset_variable_I1243 + 1, shared->dim_I1243);
-  index[89] = integer_sequence(shared->offset_variable_I1234 + 1, shared->dim_I1234);
-  index[90] = integer_sequence(shared->offset_variable_R1234 + 1, shared->dim_R1234);
-  index[91] = integer_sequence(shared->offset_variable_Ntotal_out + 1, shared->dim_Ntotal_out);
-  index[92] = integer_sequence(shared->offset_variable_out_disease_cur_week + 1, shared->dim_out_disease_cur_week);
-  index[93] = integer_sequence(shared->offset_variable_out_disease_age + 1, shared->dim_out_disease_age);
-  index[94] = integer_sequence(shared->offset_variable_out_disease_isowk + 1, shared->dim_out_disease_isowk);
-  index[95] = integer_sequence(shared->offset_variable_out_disease_tot_yr + 1, shared->dim_out_disease_tot_yr);
-  index[96] = integer_sequence(shared->offset_variable_out_seronegative + 1, shared->dim_out_seronegative);
+  index[43] = cpp11::writable::integers({44});
+  index[44] = integer_sequence(45, shared->dim_S);
+  index[45] = integer_sequence(shared->offset_variable_I1 + 1, shared->dim_I1);
+  index[46] = integer_sequence(shared->offset_variable_I2 + 1, shared->dim_I2);
+  index[47] = integer_sequence(shared->offset_variable_I3 + 1, shared->dim_I3);
+  index[48] = integer_sequence(shared->offset_variable_I4 + 1, shared->dim_I4);
+  index[49] = integer_sequence(shared->offset_variable_R1 + 1, shared->dim_R1);
+  index[50] = integer_sequence(shared->offset_variable_R2 + 1, shared->dim_R2);
+  index[51] = integer_sequence(shared->offset_variable_R3 + 1, shared->dim_R3);
+  index[52] = integer_sequence(shared->offset_variable_R4 + 1, shared->dim_R4);
+  index[53] = integer_sequence(shared->offset_variable_I21 + 1, shared->dim_I21);
+  index[54] = integer_sequence(shared->offset_variable_I31 + 1, shared->dim_I31);
+  index[55] = integer_sequence(shared->offset_variable_I41 + 1, shared->dim_I41);
+  index[56] = integer_sequence(shared->offset_variable_I12 + 1, shared->dim_I12);
+  index[57] = integer_sequence(shared->offset_variable_I32 + 1, shared->dim_I32);
+  index[58] = integer_sequence(shared->offset_variable_I42 + 1, shared->dim_I42);
+  index[59] = integer_sequence(shared->offset_variable_I13 + 1, shared->dim_I13);
+  index[60] = integer_sequence(shared->offset_variable_I23 + 1, shared->dim_I23);
+  index[61] = integer_sequence(shared->offset_variable_I43 + 1, shared->dim_I43);
+  index[62] = integer_sequence(shared->offset_variable_I14 + 1, shared->dim_I14);
+  index[63] = integer_sequence(shared->offset_variable_I24 + 1, shared->dim_I24);
+  index[64] = integer_sequence(shared->offset_variable_I34 + 1, shared->dim_I34);
+  index[65] = integer_sequence(shared->offset_variable_R12 + 1, shared->dim_R12);
+  index[66] = integer_sequence(shared->offset_variable_R13 + 1, shared->dim_R13);
+  index[67] = integer_sequence(shared->offset_variable_R14 + 1, shared->dim_R14);
+  index[68] = integer_sequence(shared->offset_variable_R23 + 1, shared->dim_R23);
+  index[69] = integer_sequence(shared->offset_variable_R24 + 1, shared->dim_R24);
+  index[70] = integer_sequence(shared->offset_variable_R34 + 1, shared->dim_R34);
+  index[71] = integer_sequence(shared->offset_variable_I231 + 1, shared->dim_I231);
+  index[72] = integer_sequence(shared->offset_variable_I241 + 1, shared->dim_I241);
+  index[73] = integer_sequence(shared->offset_variable_I341 + 1, shared->dim_I341);
+  index[74] = integer_sequence(shared->offset_variable_I132 + 1, shared->dim_I132);
+  index[75] = integer_sequence(shared->offset_variable_I142 + 1, shared->dim_I142);
+  index[76] = integer_sequence(shared->offset_variable_I342 + 1, shared->dim_I342);
+  index[77] = integer_sequence(shared->offset_variable_I123 + 1, shared->dim_I123);
+  index[78] = integer_sequence(shared->offset_variable_I143 + 1, shared->dim_I143);
+  index[79] = integer_sequence(shared->offset_variable_I243 + 1, shared->dim_I243);
+  index[80] = integer_sequence(shared->offset_variable_I124 + 1, shared->dim_I124);
+  index[81] = integer_sequence(shared->offset_variable_I134 + 1, shared->dim_I134);
+  index[82] = integer_sequence(shared->offset_variable_I234 + 1, shared->dim_I234);
+  index[83] = integer_sequence(shared->offset_variable_R123 + 1, shared->dim_R123);
+  index[84] = integer_sequence(shared->offset_variable_R124 + 1, shared->dim_R124);
+  index[85] = integer_sequence(shared->offset_variable_R134 + 1, shared->dim_R134);
+  index[86] = integer_sequence(shared->offset_variable_R234 + 1, shared->dim_R234);
+  index[87] = integer_sequence(shared->offset_variable_I2341 + 1, shared->dim_I2341);
+  index[88] = integer_sequence(shared->offset_variable_I1342 + 1, shared->dim_I1342);
+  index[89] = integer_sequence(shared->offset_variable_I1243 + 1, shared->dim_I1243);
+  index[90] = integer_sequence(shared->offset_variable_I1234 + 1, shared->dim_I1234);
+  index[91] = integer_sequence(shared->offset_variable_R1234 + 1, shared->dim_R1234);
+  index[92] = integer_sequence(shared->offset_variable_Ntotal_out + 1, shared->dim_Ntotal_out);
+  index[93] = integer_sequence(shared->offset_variable_out_disease_cur_week + 1, shared->dim_out_disease_cur_week);
+  index[94] = integer_sequence(shared->offset_variable_out_disease_age + 1, shared->dim_out_disease_age);
+  index[95] = integer_sequence(shared->offset_variable_out_disease_isowk + 1, shared->dim_out_disease_isowk);
+  index[96] = integer_sequence(shared->offset_variable_out_disease_tot_yr + 1, shared->dim_out_disease_tot_yr);
+  index[97] = integer_sequence(shared->offset_variable_out_seronegative + 1, shared->dim_out_seronegative);
   index.names() = nms;
   size_t len = shared->offset_variable_out_seronegative + shared->dim_out_seronegative;
   using namespace cpp11::literals;

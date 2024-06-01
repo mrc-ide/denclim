@@ -1,6 +1,6 @@
 Package: denclim
 Title: Model of Dengue
-Version: 0.0.4
+Version: 0.0.5
 Authors@R: 
     c(person("Neil", "Ferguson", email = "n.ferguson@imperial.ac.uk",
              role = c("aut", "cre")))

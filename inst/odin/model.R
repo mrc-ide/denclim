@@ -413,7 +413,7 @@
   
   Lwt_birth <- DT*gamma*Mwt_tot
   L_deathrt <- DT*sigma*((1+(Lwt/(Kc*NT))^omega))
-  O_Lwt <- (DT*epsilon+L_deathrt)*(Lwt)
+  O_Lwt <- (1-exp(-(DT*epsilon+L_deathrt)))*(Lwt)
   Lwt_mature <- (DT*epsilon/(DT*epsilon+L_deathrt))*(O_Lwt)
   update(Lwt) <- Lwt_birth+Lwt-O_Lwt
   Mwt_FOI1 <- DT*Beta_hm_1*kappa*infectious1

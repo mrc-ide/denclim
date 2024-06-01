@@ -1136,7 +1136,7 @@ public:
     state_next[24] = Mwt_tot / (real_type) NT;
     real_type clim_row = (cur_clim_day < 0 ? norm_rel_clim_day : (cur_clim_day >= shared->max_clim_day ? norm_rel_clim_end_day : cur_clim_day));
     real_type DAYS_AFTER_4Y = TIME_OFFSET * shared->DT - FOUR_YEARS * shared->DAYS_IN_4Y;
-    real_type O_Lwt = (shared->DT * shared->epsilon + L_deathrt) * (Lwt);
+    real_type O_Lwt = (1 - dust::math::exp(- (shared->DT * shared->epsilon + L_deathrt))) * (Lwt);
     real_type Lwt_mature = (shared->DT * shared->epsilon / (real_type) (shared->DT * shared->epsilon + L_deathrt)) * (O_Lwt);
     real_type rainfall = shared->climate_d[shared->dim_climate_d_1 * 1 + static_cast<int>(clim_row + 1) - 1] * shared->DT;
     real_type temperature = shared->climate_d[shared->dim_climate_d_1 * 0 + static_cast<int>(clim_row + 1) - 1];

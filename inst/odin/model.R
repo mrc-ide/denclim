@@ -626,16 +626,16 @@
   update(out_disease_cur_week[1:N_age]) <- (if(cur_data_day%%7==0) 0 else out_disease_cur_week[i])+disease[i]
 
   # ## array of weekly cases by age (for DATA_NUM_WEEKS)
-  # dim(out_update_switch) <- DATA_NUM_WEEKS
-  # out_update_switch[1:DATA_NUM_WEEKS] <- if((cur_data_week==i) && (DATA_PERIOD_ACTIVE==1) && (cur_data_week <= DATA_NUM_WEEKS)) 1 else 0
+  dim(out_update_switch) <- DATA_NUM_WEEKS
+  out_update_switch[1:DATA_NUM_WEEKS] <- if((cur_data_week==i) && (DATA_PERIOD_ACTIVE==1) && (cur_data_week <= DATA_NUM_WEEKS)) 1 else 0
   # dim(out_disease) <- c(DATA_NUM_WEEKS,N_age)
   # initial(out_disease[1:DATA_NUM_WEEKS,1:N_age]) <- 0.0
   # update(out_disease[1:DATA_NUM_WEEKS,1:N_age]) <- out_disease[i,j] + out_update_switch[i]*disease[j]
   # 
   # ## array of total weekly cases (for DATA_NUM_WEEKS)
-  # dim(out_disease_tot) <- DATA_NUM_WEEKS
-  # initial(out_disease_tot[1:DATA_NUM_WEEKS]) <- 0.0
-  # update(out_disease_tot[1:DATA_NUM_WEEKS]) <- out_disease_tot[i] + out_update_switch[i]*disease_tot
+  dim(out_disease_tot) <- DATA_NUM_WEEKS
+  initial(out_disease_tot[1:DATA_NUM_WEEKS]) <- 0.0
+  update(out_disease_tot[1:DATA_NUM_WEEKS]) <- out_disease_tot[i] + out_update_switch[i]*disease_tot
   
   ## array of total cases (over data period) by age
   dim(out_disease_age) <- N_age

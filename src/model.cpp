@@ -121,6 +121,9 @@ __host__ __device__ T odin_sign(T x) {
 // [[dust::param(births_d, has_default = FALSE, default_value = NULL, rank = 2, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(CALIB_YEAR, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(climate_d, has_default = FALSE, default_value = NULL, rank = 2, min = -Inf, max = Inf, integer = FALSE)]]
+// [[dust::param(COVID_START, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
+// [[dust::param(COVID_STOP, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
+// [[dust::param(COVID_trans_level, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(DATA_NUM_WEEKS, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(DATA_REPORTING_DELAY, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
 // [[dust::param(DATA_SERO_YEAR, has_default = FALSE, default_value = NULL, rank = 0, min = -Inf, max = Inf, integer = FALSE)]]
@@ -196,6 +199,9 @@ public:
     std::vector<real_type> births_d;
     real_type CALIB_YEAR;
     std::vector<real_type> climate_d;
+    real_type COVID_START;
+    real_type COVID_STOP;
+    real_type COVID_trans_level;
     int DATA_NUM_WEEKS;
     int DATA_NUM_YEARS;
     real_type DATA_REPORTING_DELAY;
@@ -1157,7 +1163,7 @@ public:
     state_next[6] = shared->R0agescale;
     state_next[21] = temperature;
     real_type Beta_hm = shared->Beta_hm_max * Beta_temperature;
-    real_type Beta_mh = shared->Beta_mh_max * Beta_temperature;
+    real_type Beta_multiplier = (CALENDAR_YEAR > shared->COVID_START && CALENDAR_YEAR < shared->COVID_STOP ? shared->COVID_trans_level : 1);
     real_type change_accum_rain = dust::math::exp(- (1 + rain_norm / (real_type) shared->sat_rain + (rain_norm * rain_norm) / (real_type) (shared->max_rain * shared->max_rain)) * shared->DT / (real_type) shared->tau_rain);
     real_type delta = 1 / (real_type) (1 / (real_type) shared->delta_max + delta_temperature * (1 / (real_type) shared->delta_p - 1 / (real_type) shared->delta_max));
     real_type ORDINAL_YEAR = dust::math::floor(CALENDAR_YEAR + static_cast<real_type>(0.0001));
@@ -1167,6 +1173,7 @@ public:
     real_type Beta_hm_2 = Beta_hm * shared->Rel_R02;
     real_type Beta_hm_3 = Beta_hm * shared->Rel_R03;
     real_type Beta_hm_4 = Beta_hm * shared->Rel_R04;
+    real_type Beta_mh = shared->Beta_mh_max * Beta_temperature * Beta_multiplier;
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.cur_age_rate[i - 1] = shared->age_rate_d[shared->dim_age_rate_d_1 * (1 + i - 1) + static_cast<int>(year_row) - 1];
     }
@@ -1178,17 +1185,12 @@ public:
        int i = 1;
        internal.death[i - 1] = static_cast<real_type>(0.46910000000000002) * internal.death[0] * internal.death[0] + static_cast<real_type>(1.9685999999999999) * internal.death[0];
     }
-    real_type FOI1 = shared->DT * Beta_mh * shared->kappa * Mwt_I1 / (real_type) NT + shared->extInfRand;
-    real_type FOI2 = shared->DT * Beta_mh * shared->kappa * Mwt_I2 / (real_type) NT + shared->extInfRand;
-    real_type FOI3 = shared->DT * Beta_mh * shared->kappa * Mwt_I3 / (real_type) NT + shared->extInfRand;
-    real_type FOI4 = shared->DT * Beta_mh * shared->kappa * Mwt_I4 / (real_type) NT + shared->extInfRand;
     real_type Nb = shared->births_d[shared->dim_births_d_1 * 1 + static_cast<int>(year_row) - 1];
     real_type O_Mwt_E1 = (shared->DT * (delta + 1 / (real_type) shared->eip)) * (Mwt_E1);
     real_type O_Mwt_E2 = (shared->DT * (delta + 1 / (real_type) shared->eip)) * (Mwt_E2);
     real_type O_Mwt_E3 = (shared->DT * (delta + 1 / (real_type) shared->eip)) * (Mwt_E3);
     real_type O_Mwt_E4 = (shared->DT * (delta + 1 / (real_type) shared->eip)) * (Mwt_E4);
     state_next[5] = (accum_rain + shared->DT * rain_norm / (real_type) shared->tau_rain) * change_accum_rain;
-    state_next[23] = Beta_mh;
     state_next[22] = delta;
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.agert[i - 1] = internal.cur_age_rate[i - 1] * agerts;
@@ -1198,6 +1200,27 @@ public:
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.deathrt[i - 1] = internal.death[i - 1] / (real_type) shared->YL * shared->DT;
     }
+    real_type FOI1 = shared->DT * Beta_mh * shared->kappa * Mwt_I1 / (real_type) NT + shared->extInfRand;
+    real_type FOI2 = shared->DT * Beta_mh * shared->kappa * Mwt_I2 / (real_type) NT + shared->extInfRand;
+    real_type FOI3 = shared->DT * Beta_mh * shared->kappa * Mwt_I3 / (real_type) NT + shared->extInfRand;
+    real_type FOI4 = shared->DT * Beta_mh * shared->kappa * Mwt_I4 / (real_type) NT + shared->extInfRand;
+    real_type Mwt_E1_incub = (1 / (real_type) (delta * shared->eip + 1)) * (O_Mwt_E1);
+    real_type Mwt_E2_incub = (1 / (real_type) (delta * shared->eip + 1)) * (O_Mwt_E2);
+    real_type Mwt_E3_incub = (1 / (real_type) (delta * shared->eip + 1)) * (O_Mwt_E3);
+    real_type Mwt_E4_incub = (1 / (real_type) (delta * shared->eip + 1)) * (O_Mwt_E4);
+    real_type Mwt_FOI1 = shared->DT * Beta_hm_1 * shared->kappa * infectious1;
+    real_type Mwt_FOI2 = shared->DT * Beta_hm_2 * shared->kappa * infectious2;
+    real_type Mwt_FOI3 = shared->DT * Beta_hm_3 * shared->kappa * infectious3;
+    real_type Mwt_FOI4 = shared->DT * Beta_hm_4 * shared->kappa * infectious4;
+    for (int i = 1; i <= shared->N_age; ++i) {
+      internal.seroneg[i - 1] = S[i - 1] / (real_type) internal.Ntotal[i - 1] * shared->DT / (real_type) CUR_YEAR_LENGTH;
+    }
+    state_next[23] = Beta_mh;
+    state_next[17] = shared->kappa * shared->kappa * (Mwt_tot) * Beta_hm_1 * shared->inf_per * Beta_mh / (real_type) (1 + delta * shared->eip) / (real_type) delta / (real_type) NT / (real_type) shared->R0agescale;
+    state_next[18] = shared->kappa * shared->kappa * (Mwt_tot) * Beta_hm_2 * shared->inf_per * Beta_mh / (real_type) (1 + delta * shared->eip) / (real_type) delta / (real_type) NT / (real_type) shared->R0agescale;
+    state_next[19] = shared->kappa * shared->kappa * (Mwt_tot) * Beta_hm_3 * shared->inf_per * Beta_mh / (real_type) (1 + delta * shared->eip) / (real_type) delta / (real_type) NT / (real_type) shared->R0agescale;
+    state_next[20] = shared->kappa * shared->kappa * (Mwt_tot) * Beta_hm_4 * shared->inf_per * Beta_mh / (real_type) (1 + delta * shared->eip) / (real_type) delta / (real_type) NT / (real_type) shared->R0agescale;
+    real_type DATA_DAY_OF_YEAR0 = DAY_OF_YEAR + shared->DATA_REPORTING_DELAY;
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.FOI1a[i - 1] = shared->FOIas[i - 1] * FOI1;
     }
@@ -1210,28 +1233,6 @@ public:
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.FOI4a[i - 1] = shared->FOIas[i - 1] * FOI4;
     }
-    real_type Mwt_E1_incub = (1 / (real_type) (delta * shared->eip + 1)) * (O_Mwt_E1);
-    real_type Mwt_E2_incub = (1 / (real_type) (delta * shared->eip + 1)) * (O_Mwt_E2);
-    real_type Mwt_E3_incub = (1 / (real_type) (delta * shared->eip + 1)) * (O_Mwt_E3);
-    real_type Mwt_E4_incub = (1 / (real_type) (delta * shared->eip + 1)) * (O_Mwt_E4);
-    real_type Mwt_FOI1 = shared->DT * Beta_hm_1 * shared->kappa * infectious1;
-    real_type Mwt_FOI2 = shared->DT * Beta_hm_2 * shared->kappa * infectious2;
-    real_type Mwt_FOI3 = shared->DT * Beta_hm_3 * shared->kappa * infectious3;
-    real_type Mwt_FOI4 = shared->DT * Beta_hm_4 * shared->kappa * infectious4;
-    for (int i = 1; i <= shared->N_age; ++i) {
-      internal.seroneg[i - 1] = S[i - 1] / (real_type) internal.Ntotal[i - 1] * shared->DT / (real_type) CUR_YEAR_LENGTH;
-    }
-    state_next[43] = FOI1 + FOI2 + FOI3 + FOI4;
-    state_next[38] = inc_FOI1 + FOI1;
-    state_next[39] = inc_FOI2 + FOI2;
-    state_next[40] = inc_FOI3 + FOI3;
-    state_next[41] = inc_FOI4 + FOI4;
-    state_next[17] = shared->kappa * shared->kappa * (Mwt_tot) * Beta_hm_1 * shared->inf_per * Beta_mh / (real_type) (1 + delta * shared->eip) / (real_type) delta / (real_type) NT / (real_type) shared->R0agescale;
-    state_next[18] = shared->kappa * shared->kappa * (Mwt_tot) * Beta_hm_2 * shared->inf_per * Beta_mh / (real_type) (1 + delta * shared->eip) / (real_type) delta / (real_type) NT / (real_type) shared->R0agescale;
-    state_next[19] = shared->kappa * shared->kappa * (Mwt_tot) * Beta_hm_3 * shared->inf_per * Beta_mh / (real_type) (1 + delta * shared->eip) / (real_type) delta / (real_type) NT / (real_type) shared->R0agescale;
-    state_next[20] = shared->kappa * shared->kappa * (Mwt_tot) * Beta_hm_4 * shared->inf_per * Beta_mh / (real_type) (1 + delta * shared->eip) / (real_type) delta / (real_type) NT / (real_type) shared->R0agescale;
-    state_next[42] = ((shared->NUM_YEAR_ACCUM * dust::math::floor(YEAR / (real_type) shared->NUM_YEAR_ACCUM) == YEAR ? 0 : tot_inc_FOI)) + FOI1 + FOI2 + FOI3 + FOI4;
-    real_type DATA_DAY_OF_YEAR0 = DAY_OF_YEAR + shared->DATA_REPORTING_DELAY;
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.O_I1[i - 1] = dust::random::binomial<real_type>(rng_state, (I1[i - 1]), (shared->nu + internal.deathrt[i - 1]));
     }
@@ -1330,6 +1331,25 @@ public:
     }
     real_type O_Mwt_S = (shared->DT * delta + Mwt_FOI1 + Mwt_FOI2 + Mwt_FOI3 + Mwt_FOI4) * (Mwt_S);
     for (int i = 1; i <= shared->N_age; ++i) {
+      internal.O_R1234[i - 1] = dust::random::binomial<real_type>(rng_state, (R1234[i - 1]), (internal.deathrt[i - 1]));
+    }
+    state_next[43] = FOI1 + FOI2 + FOI3 + FOI4;
+    state_next[38] = inc_FOI1 + FOI1;
+    state_next[39] = inc_FOI2 + FOI2;
+    state_next[40] = inc_FOI3 + FOI3;
+    state_next[41] = inc_FOI4 + FOI4;
+    state_next[13] = Mwt_E1_incub + Mwt_I1 - (shared->DT * delta) * (Mwt_I1);
+    state_next[14] = Mwt_E2_incub + Mwt_I2 - (shared->DT * delta) * (Mwt_I2);
+    state_next[15] = Mwt_E3_incub + Mwt_I3 - (shared->DT * delta) * (Mwt_I3);
+    state_next[16] = Mwt_E4_incub + Mwt_I4 - (shared->DT * delta) * (Mwt_I4);
+    for (int i = 1; i <= shared->N_age; ++i) {
+      state_next[shared->offset_variable_out_seronegative + i - 1] = out_seronegative[i - 1] + ((ORDINAL_YEAR == shared->DATA_SERO_YEAR ? internal.seroneg[i - 1] : 0));
+    }
+    state_next[42] = ((shared->NUM_YEAR_ACCUM * dust::math::floor(YEAR / (real_type) shared->NUM_YEAR_ACCUM) == YEAR ? 0 : tot_inc_FOI)) + FOI1 + FOI2 + FOI3 + FOI4;
+    real_type DATA_DAY_OF_YEAR = (DATA_DAY_OF_YEAR0 > CUR_YEAR_LENGTH ? DATA_DAY_OF_YEAR0 - CUR_YEAR_LENGTH : DATA_DAY_OF_YEAR0);
+    real_type DATA_YEAR = (DATA_DAY_OF_YEAR0 > CUR_YEAR_LENGTH ? ORDINAL_YEAR + 1 : ORDINAL_YEAR);
+    real_type Mwt_inf1 = (Mwt_FOI1 / (real_type) (shared->DT * delta + Mwt_FOI1 + Mwt_FOI2 + Mwt_FOI3 + Mwt_FOI4)) * (O_Mwt_S);
+    for (int i = 1; i <= shared->N_age; ++i) {
       internal.O_R1[i - 1] = dust::random::binomial<real_type>(rng_state, (R1[i - 1]), (shared->rho_sec * internal.FOI2a[i - 1] + shared->rho_sec * internal.FOI3a[i - 1] + shared->rho_sec * internal.FOI4a[i - 1] + internal.deathrt[i - 1]));
     }
     for (int i = 1; i <= shared->N_age; ++i) {
@@ -1337,9 +1357,6 @@ public:
     }
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.O_R123[i - 1] = dust::random::binomial<real_type>(rng_state, (R123[i - 1]), (shared->rho_quart * internal.FOI4a[i - 1] + internal.deathrt[i - 1]));
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      internal.O_R1234[i - 1] = dust::random::binomial<real_type>(rng_state, (R1234[i - 1]), (internal.deathrt[i - 1]));
     }
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.O_R124[i - 1] = dust::random::binomial<real_type>(rng_state, (R124[i - 1]), (shared->rho_quart * internal.FOI3a[i - 1] + internal.deathrt[i - 1]));
@@ -1377,68 +1394,6 @@ public:
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.O_S[i - 1] = dust::random::binomial<real_type>(rng_state, (S[i - 1]), (shared->rho_pri * internal.FOI1a[i - 1] + shared->rho_pri * internal.FOI2a[i - 1] + shared->rho_pri * internal.FOI3a[i - 1] + shared->rho_pri * internal.FOI4a[i - 1] + internal.deathrt[i - 1]));
     }
-    state_next[13] = Mwt_E1_incub + Mwt_I1 - (shared->DT * delta) * (Mwt_I1);
-    state_next[14] = Mwt_E2_incub + Mwt_I2 - (shared->DT * delta) * (Mwt_I2);
-    state_next[15] = Mwt_E3_incub + Mwt_I3 - (shared->DT * delta) * (Mwt_I3);
-    state_next[16] = Mwt_E4_incub + Mwt_I4 - (shared->DT * delta) * (Mwt_I4);
-    for (int i = 1; i <= shared->N_age; ++i) {
-      state_next[shared->offset_variable_out_seronegative + i - 1] = out_seronegative[i - 1] + ((ORDINAL_YEAR == shared->DATA_SERO_YEAR ? internal.seroneg[i - 1] : 0));
-    }
-    for (int i = 2; i <= shared->N_age_p1; ++i) {
-      internal.age_S[i - 1] = dust::random::binomial<real_type>(rng_state, S[i - 1 - 1] - internal.O_S[i - 1 - 1], internal.agert[i - 1 - 1]);
-    }
-    {
-       int i = 1;
-       internal.age_S[i - 1] = dust::random::binomial<real_type>(rng_state, 10000000, births / (real_type) 10000000);
-    }
-    real_type DATA_DAY_OF_YEAR = (DATA_DAY_OF_YEAR0 > CUR_YEAR_LENGTH ? DATA_DAY_OF_YEAR0 - CUR_YEAR_LENGTH : DATA_DAY_OF_YEAR0);
-    real_type DATA_YEAR = (DATA_DAY_OF_YEAR0 > CUR_YEAR_LENGTH ? ORDINAL_YEAR + 1 : ORDINAL_YEAR);
-    for (int i = 1; i <= shared->N_age; ++i) {
-      internal.inf_1[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_S[i - 1]), (shared->rho_pri * internal.FOI1a[i - 1] / (real_type) (shared->rho_pri * internal.FOI1a[i - 1] + shared->rho_pri * internal.FOI2a[i - 1] + shared->rho_pri * internal.FOI3a[i - 1] + shared->rho_pri * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      internal.inf_12[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R1[i - 1]), (shared->rho_sec * internal.FOI2a[i - 1] / (real_type) (shared->rho_sec * internal.FOI2a[i - 1] + shared->rho_sec * internal.FOI3a[i - 1] + shared->rho_sec * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      internal.inf_123[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R12[i - 1]), (shared->rho_tert * internal.FOI3a[i - 1] / (real_type) (shared->rho_tert * internal.FOI3a[i - 1] + shared->rho_tert * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      internal.inf_1234[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R123[i - 1]), (shared->rho_quart * internal.FOI4a[i - 1] / (real_type) (shared->rho_quart * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      internal.inf_1243[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R124[i - 1]), (shared->rho_quart * internal.FOI3a[i - 1] / (real_type) (shared->rho_quart * internal.FOI3a[i - 1] + internal.deathrt[i - 1])));
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      internal.inf_132[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R13[i - 1]), (shared->rho_tert * internal.FOI2a[i - 1] / (real_type) (shared->rho_tert * internal.FOI2a[i - 1] + shared->rho_tert * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      internal.inf_1342[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R134[i - 1]), (shared->rho_quart * internal.FOI2a[i - 1] / (real_type) (shared->rho_quart * internal.FOI2a[i - 1] + internal.deathrt[i - 1])));
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      internal.inf_142[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R14[i - 1]), (shared->rho_tert * internal.FOI2a[i - 1] / (real_type) (shared->rho_tert * internal.FOI2a[i - 1] + shared->rho_tert * internal.FOI3a[i - 1] + internal.deathrt[i - 1])));
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      internal.inf_21[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R2[i - 1]), (shared->rho_sec * internal.FOI1a[i - 1] / (real_type) (shared->rho_sec * internal.FOI1a[i - 1] + shared->rho_sec * internal.FOI3a[i - 1] + shared->rho_sec * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      internal.inf_231[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R23[i - 1]), (shared->rho_tert * internal.FOI1a[i - 1] / (real_type) (shared->rho_tert * internal.FOI1a[i - 1] + shared->rho_tert * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      internal.inf_2341[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R234[i - 1]), (shared->rho_quart * internal.FOI1a[i - 1] / (real_type) (shared->rho_quart * internal.FOI1a[i - 1] + internal.deathrt[i - 1])));
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      internal.inf_241[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R24[i - 1]), (shared->rho_tert * internal.FOI1a[i - 1] / (real_type) (shared->rho_tert * internal.FOI1a[i - 1] + shared->rho_tert * internal.FOI3a[i - 1] + internal.deathrt[i - 1])));
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      internal.inf_31[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R3[i - 1]), (shared->rho_sec * internal.FOI1a[i - 1] / (real_type) (shared->rho_sec * internal.FOI1a[i - 1] + shared->rho_sec * internal.FOI2a[i - 1] + shared->rho_sec * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      internal.inf_341[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R34[i - 1]), (shared->rho_tert * internal.FOI1a[i - 1] / (real_type) (shared->rho_tert * internal.FOI1a[i - 1] + shared->rho_tert * internal.FOI2a[i - 1] + internal.deathrt[i - 1])));
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      internal.inf_41[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R4[i - 1]), (shared->rho_sec * internal.FOI1a[i - 1] / (real_type) (shared->rho_sec * internal.FOI1a[i - 1] + shared->rho_sec * internal.FOI2a[i - 1] + shared->rho_sec * internal.FOI3a[i - 1] + internal.deathrt[i - 1])));
-    }
-    real_type Mwt_inf1 = (Mwt_FOI1 / (real_type) (shared->DT * delta + Mwt_FOI1 + Mwt_FOI2 + Mwt_FOI3 + Mwt_FOI4)) * (O_Mwt_S);
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.recov_1[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_I1[i - 1]), (shared->nu / (real_type) (shared->nu + internal.deathrt[i - 1])));
     }
@@ -1536,111 +1491,6 @@ public:
       internal.recov_43[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_I43[i - 1]), (shared->nu / (real_type) (shared->nu + internal.deathrt[i - 1])));
     }
     state_next[8] = Lwt_mature + Mwt_S - O_Mwt_S;
-    for (int i = 2; i <= shared->N_age_p1; ++i) {
-      internal.age_I1[i - 1] = dust::random::binomial<real_type>(rng_state, (I1[i - 1 - 1] - internal.O_I1[i - 1 - 1] + internal.inf_1[i - 1 - 1]), internal.agert[i - 1 - 1]);
-    }
-    {
-       int i = 1;
-       internal.age_I1[i - 1] = 0;
-    }
-    for (int i = 2; i <= shared->N_age_p1; ++i) {
-      internal.age_I12[i - 1] = dust::random::binomial<real_type>(rng_state, (I12[i - 1 - 1] - internal.O_I12[i - 1 - 1] + internal.inf_12[i - 1 - 1]), internal.agert[i - 1 - 1]);
-    }
-    {
-       int i = 1;
-       internal.age_I12[i - 1] = 0;
-    }
-    for (int i = 2; i <= shared->N_age_p1; ++i) {
-      internal.age_I123[i - 1] = dust::random::binomial<real_type>(rng_state, (I123[i - 1 - 1] - internal.O_I123[i - 1 - 1] + internal.inf_123[i - 1 - 1]), internal.agert[i - 1 - 1]);
-    }
-    {
-       int i = 1;
-       internal.age_I123[i - 1] = 0;
-    }
-    for (int i = 2; i <= shared->N_age_p1; ++i) {
-      internal.age_I1234[i - 1] = dust::random::binomial<real_type>(rng_state, (I1234[i - 1 - 1] - internal.O_I1234[i - 1 - 1] + internal.inf_1234[i - 1 - 1]), internal.agert[i - 1 - 1]);
-    }
-    {
-       int i = 1;
-       internal.age_I1234[i - 1] = 0;
-    }
-    for (int i = 2; i <= shared->N_age_p1; ++i) {
-      internal.age_I1243[i - 1] = dust::random::binomial<real_type>(rng_state, (I1243[i - 1 - 1] - internal.O_I1243[i - 1 - 1] + internal.inf_1243[i - 1 - 1]), internal.agert[i - 1 - 1]);
-    }
-    {
-       int i = 1;
-       internal.age_I1243[i - 1] = 0;
-    }
-    for (int i = 2; i <= shared->N_age_p1; ++i) {
-      internal.age_I132[i - 1] = dust::random::binomial<real_type>(rng_state, (I132[i - 1 - 1] - internal.O_I132[i - 1 - 1] + internal.inf_132[i - 1 - 1]), internal.agert[i - 1 - 1]);
-    }
-    {
-       int i = 1;
-       internal.age_I132[i - 1] = 0;
-    }
-    for (int i = 2; i <= shared->N_age_p1; ++i) {
-      internal.age_I1342[i - 1] = dust::random::binomial<real_type>(rng_state, (I1342[i - 1 - 1] - internal.O_I1342[i - 1 - 1] + internal.inf_1342[i - 1 - 1]), internal.agert[i - 1 - 1]);
-    }
-    {
-       int i = 1;
-       internal.age_I1342[i - 1] = 0;
-    }
-    for (int i = 2; i <= shared->N_age_p1; ++i) {
-      internal.age_I142[i - 1] = dust::random::binomial<real_type>(rng_state, (I142[i - 1 - 1] - internal.O_I142[i - 1 - 1] + internal.inf_142[i - 1 - 1]), internal.agert[i - 1 - 1]);
-    }
-    {
-       int i = 1;
-       internal.age_I142[i - 1] = 0;
-    }
-    for (int i = 2; i <= shared->N_age_p1; ++i) {
-      internal.age_I21[i - 1] = dust::random::binomial<real_type>(rng_state, (I21[i - 1 - 1] - internal.O_I21[i - 1 - 1] + internal.inf_21[i - 1 - 1]), internal.agert[i - 1 - 1]);
-    }
-    {
-       int i = 1;
-       internal.age_I21[i - 1] = 0;
-    }
-    for (int i = 2; i <= shared->N_age_p1; ++i) {
-      internal.age_I231[i - 1] = dust::random::binomial<real_type>(rng_state, (I231[i - 1 - 1] - internal.O_I231[i - 1 - 1] + internal.inf_231[i - 1 - 1]), internal.agert[i - 1 - 1]);
-    }
-    {
-       int i = 1;
-       internal.age_I231[i - 1] = 0;
-    }
-    for (int i = 2; i <= shared->N_age_p1; ++i) {
-      internal.age_I2341[i - 1] = dust::random::binomial<real_type>(rng_state, (I2341[i - 1 - 1] - internal.O_I2341[i - 1 - 1] + internal.inf_2341[i - 1 - 1]), internal.agert[i - 1 - 1]);
-    }
-    {
-       int i = 1;
-       internal.age_I2341[i - 1] = 0;
-    }
-    for (int i = 2; i <= shared->N_age_p1; ++i) {
-      internal.age_I241[i - 1] = dust::random::binomial<real_type>(rng_state, (I241[i - 1 - 1] - internal.O_I241[i - 1 - 1] + internal.inf_241[i - 1 - 1]), internal.agert[i - 1 - 1]);
-    }
-    {
-       int i = 1;
-       internal.age_I241[i - 1] = 0;
-    }
-    for (int i = 2; i <= shared->N_age_p1; ++i) {
-      internal.age_I31[i - 1] = dust::random::binomial<real_type>(rng_state, (I31[i - 1 - 1] - internal.O_I31[i - 1 - 1] + internal.inf_31[i - 1 - 1]), internal.agert[i - 1 - 1]);
-    }
-    {
-       int i = 1;
-       internal.age_I31[i - 1] = 0;
-    }
-    for (int i = 2; i <= shared->N_age_p1; ++i) {
-      internal.age_I341[i - 1] = dust::random::binomial<real_type>(rng_state, (I341[i - 1 - 1] - internal.O_I341[i - 1 - 1] + internal.inf_341[i - 1 - 1]), internal.agert[i - 1 - 1]);
-    }
-    {
-       int i = 1;
-       internal.age_I341[i - 1] = 0;
-    }
-    for (int i = 2; i <= shared->N_age_p1; ++i) {
-      internal.age_I41[i - 1] = dust::random::binomial<real_type>(rng_state, (I41[i - 1 - 1] - internal.O_I41[i - 1 - 1] + internal.inf_41[i - 1 - 1]), internal.agert[i - 1 - 1]);
-    }
-    {
-       int i = 1;
-       internal.age_I41[i - 1] = 0;
-    }
     for (int i = 2; i <= shared->N_age_p1; ++i) {
       internal.age_R1[i - 1] = dust::random::binomial<real_type>(rng_state, (R1[i - 1 - 1] - internal.O_R1[i - 1 - 1] + internal.recov_1[i - 1 - 1]), internal.agert[i - 1 - 1]);
     }
@@ -1746,7 +1596,168 @@ public:
        int i = 1;
        internal.age_R4[i - 1] = 0;
     }
+    for (int i = 2; i <= shared->N_age_p1; ++i) {
+      internal.age_S[i - 1] = dust::random::binomial<real_type>(rng_state, S[i - 1 - 1] - internal.O_S[i - 1 - 1], internal.agert[i - 1 - 1]);
+    }
+    {
+       int i = 1;
+       internal.age_S[i - 1] = dust::random::binomial<real_type>(rng_state, 10000000, births / (real_type) 10000000);
+    }
     real_type DATA_YEAR_LENGTH = (fmodr<real_type>(DATA_YEAR, 4) == 0 ? 366 : 365);
+    for (int i = 1; i <= shared->N_age; ++i) {
+      internal.inf_1[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_S[i - 1]), (shared->rho_pri * internal.FOI1a[i - 1] / (real_type) (shared->rho_pri * internal.FOI1a[i - 1] + shared->rho_pri * internal.FOI2a[i - 1] + shared->rho_pri * internal.FOI3a[i - 1] + shared->rho_pri * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      internal.inf_12[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R1[i - 1]), (shared->rho_sec * internal.FOI2a[i - 1] / (real_type) (shared->rho_sec * internal.FOI2a[i - 1] + shared->rho_sec * internal.FOI3a[i - 1] + shared->rho_sec * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      internal.inf_123[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R12[i - 1]), (shared->rho_tert * internal.FOI3a[i - 1] / (real_type) (shared->rho_tert * internal.FOI3a[i - 1] + shared->rho_tert * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      internal.inf_1234[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R123[i - 1]), (shared->rho_quart * internal.FOI4a[i - 1] / (real_type) (shared->rho_quart * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      internal.inf_1243[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R124[i - 1]), (shared->rho_quart * internal.FOI3a[i - 1] / (real_type) (shared->rho_quart * internal.FOI3a[i - 1] + internal.deathrt[i - 1])));
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      internal.inf_132[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R13[i - 1]), (shared->rho_tert * internal.FOI2a[i - 1] / (real_type) (shared->rho_tert * internal.FOI2a[i - 1] + shared->rho_tert * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      internal.inf_1342[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R134[i - 1]), (shared->rho_quart * internal.FOI2a[i - 1] / (real_type) (shared->rho_quart * internal.FOI2a[i - 1] + internal.deathrt[i - 1])));
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      internal.inf_142[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R14[i - 1]), (shared->rho_tert * internal.FOI2a[i - 1] / (real_type) (shared->rho_tert * internal.FOI2a[i - 1] + shared->rho_tert * internal.FOI3a[i - 1] + internal.deathrt[i - 1])));
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      internal.inf_21[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R2[i - 1]), (shared->rho_sec * internal.FOI1a[i - 1] / (real_type) (shared->rho_sec * internal.FOI1a[i - 1] + shared->rho_sec * internal.FOI3a[i - 1] + shared->rho_sec * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      internal.inf_231[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R23[i - 1]), (shared->rho_tert * internal.FOI1a[i - 1] / (real_type) (shared->rho_tert * internal.FOI1a[i - 1] + shared->rho_tert * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      internal.inf_2341[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R234[i - 1]), (shared->rho_quart * internal.FOI1a[i - 1] / (real_type) (shared->rho_quart * internal.FOI1a[i - 1] + internal.deathrt[i - 1])));
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      internal.inf_241[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R24[i - 1]), (shared->rho_tert * internal.FOI1a[i - 1] / (real_type) (shared->rho_tert * internal.FOI1a[i - 1] + shared->rho_tert * internal.FOI3a[i - 1] + internal.deathrt[i - 1])));
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      internal.inf_31[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R3[i - 1]), (shared->rho_sec * internal.FOI1a[i - 1] / (real_type) (shared->rho_sec * internal.FOI1a[i - 1] + shared->rho_sec * internal.FOI2a[i - 1] + shared->rho_sec * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      internal.inf_341[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R34[i - 1]), (shared->rho_tert * internal.FOI1a[i - 1] / (real_type) (shared->rho_tert * internal.FOI1a[i - 1] + shared->rho_tert * internal.FOI2a[i - 1] + internal.deathrt[i - 1])));
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      internal.inf_41[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R4[i - 1]), (shared->rho_sec * internal.FOI1a[i - 1] / (real_type) (shared->rho_sec * internal.FOI1a[i - 1] + shared->rho_sec * internal.FOI2a[i - 1] + shared->rho_sec * internal.FOI3a[i - 1] + internal.deathrt[i - 1])));
+    }
+    real_type LAST_DATA_YEAR_LENGTH = (fmodr<real_type>((DATA_YEAR - 1), 4) == 0 ? 366 : 365);
+    real_type Mwt_inf2 = (Mwt_FOI2 / (real_type) (shared->DT * delta + Mwt_FOI2 + Mwt_FOI3 + Mwt_FOI4)) * (O_Mwt_S - Mwt_inf1);
+    real_type THURS_DOY_IN_WEEK0 = 4 - DATA_DOW + DATA_DAY_OF_YEAR;
+    state_next[9] = Mwt_inf1 + Mwt_E1 - O_Mwt_E1;
+    for (int i = 2; i <= shared->N_age_p1; ++i) {
+      internal.age_I1[i - 1] = dust::random::binomial<real_type>(rng_state, (I1[i - 1 - 1] - internal.O_I1[i - 1 - 1] + internal.inf_1[i - 1 - 1]), internal.agert[i - 1 - 1]);
+    }
+    {
+       int i = 1;
+       internal.age_I1[i - 1] = 0;
+    }
+    for (int i = 2; i <= shared->N_age_p1; ++i) {
+      internal.age_I12[i - 1] = dust::random::binomial<real_type>(rng_state, (I12[i - 1 - 1] - internal.O_I12[i - 1 - 1] + internal.inf_12[i - 1 - 1]), internal.agert[i - 1 - 1]);
+    }
+    {
+       int i = 1;
+       internal.age_I12[i - 1] = 0;
+    }
+    for (int i = 2; i <= shared->N_age_p1; ++i) {
+      internal.age_I123[i - 1] = dust::random::binomial<real_type>(rng_state, (I123[i - 1 - 1] - internal.O_I123[i - 1 - 1] + internal.inf_123[i - 1 - 1]), internal.agert[i - 1 - 1]);
+    }
+    {
+       int i = 1;
+       internal.age_I123[i - 1] = 0;
+    }
+    for (int i = 2; i <= shared->N_age_p1; ++i) {
+      internal.age_I1234[i - 1] = dust::random::binomial<real_type>(rng_state, (I1234[i - 1 - 1] - internal.O_I1234[i - 1 - 1] + internal.inf_1234[i - 1 - 1]), internal.agert[i - 1 - 1]);
+    }
+    {
+       int i = 1;
+       internal.age_I1234[i - 1] = 0;
+    }
+    for (int i = 2; i <= shared->N_age_p1; ++i) {
+      internal.age_I1243[i - 1] = dust::random::binomial<real_type>(rng_state, (I1243[i - 1 - 1] - internal.O_I1243[i - 1 - 1] + internal.inf_1243[i - 1 - 1]), internal.agert[i - 1 - 1]);
+    }
+    {
+       int i = 1;
+       internal.age_I1243[i - 1] = 0;
+    }
+    for (int i = 2; i <= shared->N_age_p1; ++i) {
+      internal.age_I132[i - 1] = dust::random::binomial<real_type>(rng_state, (I132[i - 1 - 1] - internal.O_I132[i - 1 - 1] + internal.inf_132[i - 1 - 1]), internal.agert[i - 1 - 1]);
+    }
+    {
+       int i = 1;
+       internal.age_I132[i - 1] = 0;
+    }
+    for (int i = 2; i <= shared->N_age_p1; ++i) {
+      internal.age_I1342[i - 1] = dust::random::binomial<real_type>(rng_state, (I1342[i - 1 - 1] - internal.O_I1342[i - 1 - 1] + internal.inf_1342[i - 1 - 1]), internal.agert[i - 1 - 1]);
+    }
+    {
+       int i = 1;
+       internal.age_I1342[i - 1] = 0;
+    }
+    for (int i = 2; i <= shared->N_age_p1; ++i) {
+      internal.age_I142[i - 1] = dust::random::binomial<real_type>(rng_state, (I142[i - 1 - 1] - internal.O_I142[i - 1 - 1] + internal.inf_142[i - 1 - 1]), internal.agert[i - 1 - 1]);
+    }
+    {
+       int i = 1;
+       internal.age_I142[i - 1] = 0;
+    }
+    for (int i = 2; i <= shared->N_age_p1; ++i) {
+      internal.age_I21[i - 1] = dust::random::binomial<real_type>(rng_state, (I21[i - 1 - 1] - internal.O_I21[i - 1 - 1] + internal.inf_21[i - 1 - 1]), internal.agert[i - 1 - 1]);
+    }
+    {
+       int i = 1;
+       internal.age_I21[i - 1] = 0;
+    }
+    for (int i = 2; i <= shared->N_age_p1; ++i) {
+      internal.age_I231[i - 1] = dust::random::binomial<real_type>(rng_state, (I231[i - 1 - 1] - internal.O_I231[i - 1 - 1] + internal.inf_231[i - 1 - 1]), internal.agert[i - 1 - 1]);
+    }
+    {
+       int i = 1;
+       internal.age_I231[i - 1] = 0;
+    }
+    for (int i = 2; i <= shared->N_age_p1; ++i) {
+      internal.age_I2341[i - 1] = dust::random::binomial<real_type>(rng_state, (I2341[i - 1 - 1] - internal.O_I2341[i - 1 - 1] + internal.inf_2341[i - 1 - 1]), internal.agert[i - 1 - 1]);
+    }
+    {
+       int i = 1;
+       internal.age_I2341[i - 1] = 0;
+    }
+    for (int i = 2; i <= shared->N_age_p1; ++i) {
+      internal.age_I241[i - 1] = dust::random::binomial<real_type>(rng_state, (I241[i - 1 - 1] - internal.O_I241[i - 1 - 1] + internal.inf_241[i - 1 - 1]), internal.agert[i - 1 - 1]);
+    }
+    {
+       int i = 1;
+       internal.age_I241[i - 1] = 0;
+    }
+    for (int i = 2; i <= shared->N_age_p1; ++i) {
+      internal.age_I31[i - 1] = dust::random::binomial<real_type>(rng_state, (I31[i - 1 - 1] - internal.O_I31[i - 1 - 1] + internal.inf_31[i - 1 - 1]), internal.agert[i - 1 - 1]);
+    }
+    {
+       int i = 1;
+       internal.age_I31[i - 1] = 0;
+    }
+    for (int i = 2; i <= shared->N_age_p1; ++i) {
+      internal.age_I341[i - 1] = dust::random::binomial<real_type>(rng_state, (I341[i - 1 - 1] - internal.O_I341[i - 1 - 1] + internal.inf_341[i - 1 - 1]), internal.agert[i - 1 - 1]);
+    }
+    {
+       int i = 1;
+       internal.age_I341[i - 1] = 0;
+    }
+    for (int i = 2; i <= shared->N_age_p1; ++i) {
+      internal.age_I41[i - 1] = dust::random::binomial<real_type>(rng_state, (I41[i - 1 - 1] - internal.O_I41[i - 1 - 1] + internal.inf_41[i - 1 - 1]), internal.agert[i - 1 - 1]);
+    }
+    {
+       int i = 1;
+       internal.age_I41[i - 1] = 0;
+    }
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.inf_124[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R12[i - 1] - internal.inf_123[i - 1]), (shared->rho_tert * internal.FOI4a[i - 1] / (real_type) (shared->rho_tert * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
     }
@@ -1780,10 +1791,54 @@ public:
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.inf_42[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R4[i - 1] - internal.inf_41[i - 1]), (shared->rho_sec * internal.FOI2a[i - 1] / (real_type) (shared->rho_sec * internal.FOI2a[i - 1] + shared->rho_sec * internal.FOI3a[i - 1] + internal.deathrt[i - 1])));
     }
-    real_type LAST_DATA_YEAR_LENGTH = (fmodr<real_type>((DATA_YEAR - 1), 4) == 0 ? 366 : 365);
-    real_type Mwt_inf2 = (Mwt_FOI2 / (real_type) (shared->DT * delta + Mwt_FOI2 + Mwt_FOI3 + Mwt_FOI4)) * (O_Mwt_S - Mwt_inf1);
-    real_type THURS_DOY_IN_WEEK0 = 4 - DATA_DOW + DATA_DAY_OF_YEAR;
-    state_next[9] = Mwt_inf1 + Mwt_E1 - O_Mwt_E1;
+    real_type Mwt_inf3 = (Mwt_FOI3 / (real_type) (shared->DT * delta + Mwt_FOI3 + Mwt_FOI4)) * (O_Mwt_S - Mwt_inf1 - Mwt_inf2);
+    real_type THURS_DOY_IN_WEEK = (THURS_DOY_IN_WEEK0 > DATA_YEAR_LENGTH ? (THURS_DOY_IN_WEEK0 - DATA_YEAR_LENGTH) : (THURS_DOY_IN_WEEK0 <= 0 ? (THURS_DOY_IN_WEEK0 + LAST_DATA_YEAR_LENGTH) : THURS_DOY_IN_WEEK0));
+    state_next[10] = Mwt_inf2 + Mwt_E2 - O_Mwt_E2;
+    for (int i = 1; i <= shared->N_age; ++i) {
+      state_next[shared->offset_variable_R1 + i - 1] = internal.age_R1[i - 1] + R1[i - 1] - internal.O_R1[i - 1] + internal.recov_1[i - 1] - internal.age_R1[i + 1 - 1];
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      state_next[shared->offset_variable_R12 + i - 1] = internal.age_R12[i - 1] + R12[i - 1] - internal.O_R12[i - 1] + internal.recov_12[i - 1] + internal.recov_21[i - 1] - internal.age_R12[i + 1 - 1];
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      state_next[shared->offset_variable_R123 + i - 1] = internal.age_R123[i - 1] + R123[i - 1] - internal.O_R123[i - 1] + internal.recov_123[i - 1] + internal.recov_132[i - 1] + internal.recov_231[i - 1] - internal.age_R123[i + 1 - 1];
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      state_next[shared->offset_variable_R1234 + i - 1] = internal.age_R1234[i - 1] + R1234[i - 1] - internal.O_R1234[i - 1] + internal.recov_1234[i - 1] + internal.recov_1243[i - 1] + internal.recov_1342[i - 1] + internal.recov_2341[i - 1] - internal.age_R1234[i + 1 - 1];
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      state_next[shared->offset_variable_R124 + i - 1] = internal.age_R124[i - 1] + R124[i - 1] - internal.O_R124[i - 1] + internal.recov_124[i - 1] + internal.recov_142[i - 1] + internal.recov_241[i - 1] - internal.age_R124[i + 1 - 1];
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      state_next[shared->offset_variable_R13 + i - 1] = internal.age_R13[i - 1] + R13[i - 1] - internal.O_R13[i - 1] + internal.recov_13[i - 1] + internal.recov_31[i - 1] - internal.age_R13[i + 1 - 1];
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      state_next[shared->offset_variable_R134 + i - 1] = internal.age_R134[i - 1] + R134[i - 1] - internal.O_R134[i - 1] + internal.recov_134[i - 1] + internal.recov_143[i - 1] + internal.recov_341[i - 1] - internal.age_R134[i + 1 - 1];
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      state_next[shared->offset_variable_R14 + i - 1] = internal.age_R14[i - 1] + R14[i - 1] - internal.O_R14[i - 1] + internal.recov_14[i - 1] + internal.recov_41[i - 1] - internal.age_R14[i + 1 - 1];
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      state_next[shared->offset_variable_R2 + i - 1] = internal.age_R2[i - 1] + R2[i - 1] - internal.O_R2[i - 1] + internal.recov_2[i - 1] - internal.age_R2[i + 1 - 1];
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      state_next[shared->offset_variable_R23 + i - 1] = internal.age_R23[i - 1] + R23[i - 1] - internal.O_R23[i - 1] + internal.recov_23[i - 1] + internal.recov_32[i - 1] - internal.age_R23[i + 1 - 1];
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      state_next[shared->offset_variable_R234 + i - 1] = internal.age_R234[i - 1] + R234[i - 1] - internal.O_R234[i - 1] + internal.recov_234[i - 1] + internal.recov_243[i - 1] + internal.recov_342[i - 1] - internal.age_R234[i + 1 - 1];
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      state_next[shared->offset_variable_R24 + i - 1] = internal.age_R24[i - 1] + R24[i - 1] - internal.O_R24[i - 1] + internal.recov_24[i - 1] + internal.recov_42[i - 1] - internal.age_R24[i + 1 - 1];
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      state_next[shared->offset_variable_R3 + i - 1] = internal.age_R3[i - 1] + R3[i - 1] - internal.O_R3[i - 1] + internal.recov_3[i - 1] - internal.age_R3[i + 1 - 1];
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      state_next[shared->offset_variable_R34 + i - 1] = internal.age_R34[i - 1] + R34[i - 1] - internal.O_R34[i - 1] + internal.recov_34[i - 1] + internal.recov_43[i - 1] - internal.age_R34[i + 1 - 1];
+    }
+    for (int i = 1; i <= shared->N_age; ++i) {
+      state_next[shared->offset_variable_R4 + i - 1] = internal.age_R4[i - 1] + R4[i - 1] - internal.O_R4[i - 1] + internal.recov_4[i - 1] - internal.age_R4[i + 1 - 1];
+    }
     for (int i = 1; i <= shared->N_age; ++i) {
       state_next[44 + i - 1] = internal.age_S[i - 1] + S[i - 1] - internal.O_S[i - 1] - internal.age_S[i + 1 - 1];
     }
@@ -1867,6 +1922,7 @@ public:
        int i = 1;
        internal.age_I42[i - 1] = 0;
     }
+    real_type CUR_ISO_WEEK = dust::math::floor((6 + THURS_DOY_IN_WEEK) / (real_type) 7);
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.inf_14[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R1[i - 1] - internal.inf_12[i - 1] - internal.inf_13[i - 1]), (shared->rho_sec * internal.FOI4a[i - 1] / (real_type) (shared->rho_sec * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
     }
@@ -1882,8 +1938,7 @@ public:
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.inf_43[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_R4[i - 1] - internal.inf_41[i - 1] - internal.inf_42[i - 1]), (shared->rho_sec * internal.FOI3a[i - 1] / (real_type) (shared->rho_sec * internal.FOI3a[i - 1] + internal.deathrt[i - 1])));
     }
-    real_type Mwt_inf3 = (Mwt_FOI3 / (real_type) (shared->DT * delta + Mwt_FOI3 + Mwt_FOI4)) * (O_Mwt_S - Mwt_inf1 - Mwt_inf2);
-    real_type THURS_DOY_IN_WEEK = (THURS_DOY_IN_WEEK0 > DATA_YEAR_LENGTH ? (THURS_DOY_IN_WEEK0 - DATA_YEAR_LENGTH) : (THURS_DOY_IN_WEEK0 <= 0 ? (THURS_DOY_IN_WEEK0 + LAST_DATA_YEAR_LENGTH) : THURS_DOY_IN_WEEK0));
+    real_type Mwt_inf4 = (Mwt_FOI4 / (real_type) (shared->DT * delta + Mwt_FOI4)) * (O_Mwt_S - Mwt_inf1 - Mwt_inf2 - Mwt_inf3);
     for (int i = 1; i <= shared->N_age; ++i) {
       state_next[shared->offset_variable_I1 + i - 1] = internal.age_I1[i - 1] + I1[i - 1] - internal.O_I1[i - 1] + internal.inf_1[i - 1] - internal.age_I1[i + 1 - 1];
     }
@@ -1929,52 +1984,7 @@ public:
     for (int i = 1; i <= shared->N_age; ++i) {
       state_next[shared->offset_variable_I41 + i - 1] = internal.age_I41[i - 1] + I41[i - 1] - internal.O_I41[i - 1] + internal.inf_41[i - 1] - internal.age_I41[i + 1 - 1];
     }
-    state_next[10] = Mwt_inf2 + Mwt_E2 - O_Mwt_E2;
-    for (int i = 1; i <= shared->N_age; ++i) {
-      state_next[shared->offset_variable_R1 + i - 1] = internal.age_R1[i - 1] + R1[i - 1] - internal.O_R1[i - 1] + internal.recov_1[i - 1] - internal.age_R1[i + 1 - 1];
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      state_next[shared->offset_variable_R12 + i - 1] = internal.age_R12[i - 1] + R12[i - 1] - internal.O_R12[i - 1] + internal.recov_12[i - 1] + internal.recov_21[i - 1] - internal.age_R12[i + 1 - 1];
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      state_next[shared->offset_variable_R123 + i - 1] = internal.age_R123[i - 1] + R123[i - 1] - internal.O_R123[i - 1] + internal.recov_123[i - 1] + internal.recov_132[i - 1] + internal.recov_231[i - 1] - internal.age_R123[i + 1 - 1];
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      state_next[shared->offset_variable_R1234 + i - 1] = internal.age_R1234[i - 1] + R1234[i - 1] - internal.O_R1234[i - 1] + internal.recov_1234[i - 1] + internal.recov_1243[i - 1] + internal.recov_1342[i - 1] + internal.recov_2341[i - 1] - internal.age_R1234[i + 1 - 1];
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      state_next[shared->offset_variable_R124 + i - 1] = internal.age_R124[i - 1] + R124[i - 1] - internal.O_R124[i - 1] + internal.recov_124[i - 1] + internal.recov_142[i - 1] + internal.recov_241[i - 1] - internal.age_R124[i + 1 - 1];
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      state_next[shared->offset_variable_R13 + i - 1] = internal.age_R13[i - 1] + R13[i - 1] - internal.O_R13[i - 1] + internal.recov_13[i - 1] + internal.recov_31[i - 1] - internal.age_R13[i + 1 - 1];
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      state_next[shared->offset_variable_R134 + i - 1] = internal.age_R134[i - 1] + R134[i - 1] - internal.O_R134[i - 1] + internal.recov_134[i - 1] + internal.recov_143[i - 1] + internal.recov_341[i - 1] - internal.age_R134[i + 1 - 1];
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      state_next[shared->offset_variable_R14 + i - 1] = internal.age_R14[i - 1] + R14[i - 1] - internal.O_R14[i - 1] + internal.recov_14[i - 1] + internal.recov_41[i - 1] - internal.age_R14[i + 1 - 1];
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      state_next[shared->offset_variable_R2 + i - 1] = internal.age_R2[i - 1] + R2[i - 1] - internal.O_R2[i - 1] + internal.recov_2[i - 1] - internal.age_R2[i + 1 - 1];
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      state_next[shared->offset_variable_R23 + i - 1] = internal.age_R23[i - 1] + R23[i - 1] - internal.O_R23[i - 1] + internal.recov_23[i - 1] + internal.recov_32[i - 1] - internal.age_R23[i + 1 - 1];
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      state_next[shared->offset_variable_R234 + i - 1] = internal.age_R234[i - 1] + R234[i - 1] - internal.O_R234[i - 1] + internal.recov_234[i - 1] + internal.recov_243[i - 1] + internal.recov_342[i - 1] - internal.age_R234[i + 1 - 1];
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      state_next[shared->offset_variable_R24 + i - 1] = internal.age_R24[i - 1] + R24[i - 1] - internal.O_R24[i - 1] + internal.recov_24[i - 1] + internal.recov_42[i - 1] - internal.age_R24[i + 1 - 1];
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      state_next[shared->offset_variable_R3 + i - 1] = internal.age_R3[i - 1] + R3[i - 1] - internal.O_R3[i - 1] + internal.recov_3[i - 1] - internal.age_R3[i + 1 - 1];
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      state_next[shared->offset_variable_R34 + i - 1] = internal.age_R34[i - 1] + R34[i - 1] - internal.O_R34[i - 1] + internal.recov_34[i - 1] + internal.recov_43[i - 1] - internal.age_R34[i + 1 - 1];
-    }
-    for (int i = 1; i <= shared->N_age; ++i) {
-      state_next[shared->offset_variable_R4 + i - 1] = internal.age_R4[i - 1] + R4[i - 1] - internal.O_R4[i - 1] + internal.recov_4[i - 1] - internal.age_R4[i + 1 - 1];
-    }
+    state_next[11] = Mwt_inf3 + Mwt_E3 - O_Mwt_E3;
     real_type Y1T = odin_sum1<real_type>(internal.Y1.data(), 0, shared->dim_Y1) / (real_type) NT;
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.Y2[i - 1] = shared->phi_pri[1] * (1 + shared->dis_pri[1] * shared->phi_ed) * internal.inf_2[i - 1] + shared->phi_sec[1] * (1 + shared->dis_sec[1] * shared->phi_ed) * (internal.inf_12[i - 1] + internal.inf_32[i - 1] + internal.inf_42[i - 1]) + shared->phi_tert[1] * (1 + shared->dis_tert[1] * shared->phi_ed) * (internal.inf_132[i - 1] + internal.inf_142[i - 1] + internal.inf_342[i - 1]) + shared->phi_quart[1] * (1 + shared->dis_quart[1] * shared->phi_ed) * internal.inf_1342[i - 1];
@@ -2014,11 +2024,10 @@ public:
        int i = 1;
        internal.age_I43[i - 1] = 0;
     }
-    real_type CUR_ISO_WEEK = dust::math::floor((6 + THURS_DOY_IN_WEEK) / (real_type) 7);
+    real_type DATA_PERIOD_ACTIVE = ((DATA_YEAR >= shared->DATA_START_YEAR) && ((DATA_YEAR > shared->DATA_START_YEAR) || (DATA_DAY_OF_YEAR >= 4) || (CUR_ISO_WEEK == 1)) ? 1 : 0);
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.inf_4[i - 1] = dust::random::binomial<real_type>(rng_state, (internal.O_S[i - 1] - internal.inf_1[i - 1] - internal.inf_2[i - 1] - internal.inf_3[i - 1]), (shared->rho_pri * internal.FOI4a[i - 1] / (real_type) (shared->rho_pri * internal.FOI4a[i - 1] + internal.deathrt[i - 1])));
     }
-    real_type Mwt_inf4 = (Mwt_FOI4 / (real_type) (shared->DT * delta + Mwt_FOI4)) * (O_Mwt_S - Mwt_inf1 - Mwt_inf2 - Mwt_inf3);
     state_next[30] = exposed1 + Y1T - exposed1 * shared->DT / (real_type) shared->incub;
     for (int i = 1; i <= shared->N_age; ++i) {
       state_next[shared->offset_variable_I124 + i - 1] = internal.age_I124[i - 1] + I124[i - 1] - internal.O_I124[i - 1] + internal.inf_124[i - 1] - internal.age_I124[i + 1 - 1];
@@ -2053,7 +2062,8 @@ public:
     for (int i = 1; i <= shared->N_age; ++i) {
       state_next[shared->offset_variable_I42 + i - 1] = internal.age_I42[i - 1] + I42[i - 1] - internal.O_I42[i - 1] + internal.inf_42[i - 1] - internal.age_I42[i + 1 - 1];
     }
-    state_next[11] = Mwt_inf3 + Mwt_E3 - O_Mwt_E3;
+    state_next[12] = Mwt_inf4 + Mwt_E4 - O_Mwt_E4;
+    state_next[3] = CUR_ISO_WEEK;
     state_next[26] = Y1T;
     real_type Y2T = odin_sum1<real_type>(internal.Y2.data(), 0, shared->dim_Y2) / (real_type) NT;
     for (int i = 1; i <= shared->N_age; ++i) {
@@ -2066,7 +2076,6 @@ public:
        int i = 1;
        internal.age_I4[i - 1] = 0;
     }
-    real_type DATA_PERIOD_ACTIVE = ((DATA_YEAR >= shared->DATA_START_YEAR) && ((DATA_YEAR > shared->DATA_START_YEAR) || (DATA_DAY_OF_YEAR >= 4) || (CUR_ISO_WEEK == 1)) ? 1 : 0);
     for (int i = 1; i <= shared->N_age; ++i) {
       int j = 1;
       internal.disease_sero[i - 1 + shared->dim_disease_sero_1 * (j - 1)] = shared->dis_pri[0] * internal.inf_1[i - 1] + shared->dis_sec[0] * (internal.inf_21[i - 1] + internal.inf_31[i - 1] + internal.inf_41[i - 1]) + shared->dis_tert[0] * (internal.inf_231[i - 1] + internal.inf_241[i - 1] + internal.inf_341[i - 1]) + shared->dis_quart[0] * internal.inf_2341[i - 1];
@@ -2083,6 +2092,16 @@ public:
       int j = 4;
       internal.disease_sero[i - 1 + shared->dim_disease_sero_1 * (j - 1)] = shared->dis_pri[3] * internal.inf_4[i - 1] + shared->dis_sec[3] * (internal.inf_14[i - 1] + internal.inf_24[i - 1] + internal.inf_34[i - 1]) + shared->dis_tert[3] * (internal.inf_124[i - 1] + internal.inf_134[i - 1] + internal.inf_234[i - 1]) + shared->dis_quart[3] * internal.inf_1234[i - 1];
     }
+    for (int i = 1; i <= shared->DATA_NUM_YEARS; ++i) {
+      internal.out_cases_yr_switch[i - 1] = ((DATA_YEAR == shared->DATA_START_YEAR + i - 1) && (DATA_PERIOD_ACTIVE == 1) && (cur_data_week <= shared->DATA_NUM_WEEKS) ? 1 : 0);
+    }
+    for (int i = 1; i <= 53; ++i) {
+      internal.out_iso_update_switch[i - 1] = ((CUR_ISO_WEEK == i) && (DATA_PERIOD_ACTIVE == 1) && (cur_data_week <= shared->DATA_NUM_WEEKS) ? 1 : 0);
+    }
+    for (int i = 1; i <= shared->DATA_NUM_WEEKS; ++i) {
+      internal.out_update_switch[i - 1] = ((cur_data_week == i) && (DATA_PERIOD_ACTIVE == 1) && (cur_data_week <= shared->DATA_NUM_WEEKS) ? 1 : 0);
+    }
+    state_next[2] = (DATA_PERIOD_ACTIVE == 0 ? DATA_DAY : DATA_DAY + shared->DT);
     state_next[31] = exposed2 + Y2T - exposed2 * shared->DT / (real_type) shared->incub;
     for (int i = 1; i <= shared->N_age; ++i) {
       state_next[shared->offset_variable_I14 + i - 1] = internal.age_I14[i - 1] + I14[i - 1] - internal.O_I14[i - 1] + internal.inf_14[i - 1] - internal.age_I14[i + 1 - 1];
@@ -2099,8 +2118,6 @@ public:
     for (int i = 1; i <= shared->N_age; ++i) {
       state_next[shared->offset_variable_I43 + i - 1] = internal.age_I43[i - 1] + I43[i - 1] - internal.O_I43[i - 1] + internal.inf_43[i - 1] - internal.age_I43[i + 1 - 1];
     }
-    state_next[12] = Mwt_inf4 + Mwt_E4 - O_Mwt_E4;
-    state_next[3] = CUR_ISO_WEEK;
     state_next[27] = Y2T;
     real_type Y3T = odin_sum1<real_type>(internal.Y3.data(), 0, shared->dim_Y3) / (real_type) NT;
     for (int i = 1; i <= shared->N_age; ++i) {
@@ -2109,16 +2126,6 @@ public:
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.disease[i - 1] = odin_sum2<real_type>(internal.disease_sero.data(), i - 1, i, 0, shared->dim_disease_sero_2, shared->dim_disease_sero_1);
     }
-    for (int i = 1; i <= shared->DATA_NUM_YEARS; ++i) {
-      internal.out_cases_yr_switch[i - 1] = ((DATA_YEAR == shared->DATA_START_YEAR + i - 1) && (DATA_PERIOD_ACTIVE == 1) && (cur_data_week <= shared->DATA_NUM_WEEKS) ? 1 : 0);
-    }
-    for (int i = 1; i <= 53; ++i) {
-      internal.out_iso_update_switch[i - 1] = ((CUR_ISO_WEEK == i) && (DATA_PERIOD_ACTIVE == 1) && (cur_data_week <= shared->DATA_NUM_WEEKS) ? 1 : 0);
-    }
-    for (int i = 1; i <= shared->DATA_NUM_WEEKS; ++i) {
-      internal.out_update_switch[i - 1] = ((cur_data_week == i) && (DATA_PERIOD_ACTIVE == 1) && (cur_data_week <= shared->DATA_NUM_WEEKS) ? 1 : 0);
-    }
-    state_next[2] = (DATA_PERIOD_ACTIVE == 0 ? DATA_DAY : DATA_DAY + shared->DT);
     state_next[32] = exposed3 + Y3T - exposed3 * shared->DT / (real_type) shared->incub;
     for (int i = 1; i <= shared->N_age; ++i) {
       state_next[shared->offset_variable_I4 + i - 1] = internal.age_I4[i - 1] + I4[i - 1] - internal.O_I4[i - 1] + internal.inf_4[i - 1] - internal.age_I4[i + 1 - 1];
@@ -3136,6 +3143,9 @@ dust::pars_type<model> dust_pars<model>(cpp11::list user) {
   shared->Beta_pTm = NA_REAL;
   shared->Beta_Tm = NA_REAL;
   shared->CALIB_YEAR = NA_REAL;
+  shared->COVID_START = NA_REAL;
+  shared->COVID_STOP = NA_REAL;
+  shared->COVID_trans_level = NA_REAL;
   shared->DATA_NUM_WEEKS = NA_INTEGER;
   shared->DATA_REPORTING_DELAY = NA_REAL;
   shared->DATA_SERO_YEAR = NA_REAL;
@@ -3179,6 +3189,9 @@ dust::pars_type<model> dust_pars<model>(cpp11::list user) {
   shared->Beta_pTm = user_get_scalar<real_type>(user, "Beta_pTm", shared->Beta_pTm, NA_REAL, NA_REAL);
   shared->Beta_Tm = user_get_scalar<real_type>(user, "Beta_Tm", shared->Beta_Tm, NA_REAL, NA_REAL);
   shared->CALIB_YEAR = user_get_scalar<real_type>(user, "CALIB_YEAR", shared->CALIB_YEAR, NA_REAL, NA_REAL);
+  shared->COVID_START = user_get_scalar<real_type>(user, "COVID_START", shared->COVID_START, NA_REAL, NA_REAL);
+  shared->COVID_STOP = user_get_scalar<real_type>(user, "COVID_STOP", shared->COVID_STOP, NA_REAL, NA_REAL);
+  shared->COVID_trans_level = user_get_scalar<real_type>(user, "COVID_trans_level", shared->COVID_trans_level, NA_REAL, NA_REAL);
   shared->DATA_NUM_WEEKS = user_get_scalar<int>(user, "DATA_NUM_WEEKS", shared->DATA_NUM_WEEKS, NA_INTEGER, NA_INTEGER);
   shared->DATA_REPORTING_DELAY = user_get_scalar<real_type>(user, "DATA_REPORTING_DELAY", shared->DATA_REPORTING_DELAY, NA_REAL, NA_REAL);
   shared->DATA_SERO_YEAR = user_get_scalar<real_type>(user, "DATA_SERO_YEAR", shared->DATA_SERO_YEAR, NA_REAL, NA_REAL);

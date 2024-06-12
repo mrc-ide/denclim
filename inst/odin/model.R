@@ -37,6 +37,9 @@
   LAST_YEAR <- user() ## last calendar year in demography data
   max_rel_year <- LAST_YEAR-FIRST_YEAR ## number of years covered by demography data
   
+  COVID_START <- user() ## calendar year (fractional) when pandemic effect started
+  COVID_STOP <- user() ## calendate year (fractional) when pandemic effect stopped
+  COVID_trans_level <- user() ## multiplier on beta during pandemic (1=no effect)
 
   ## handle leap years, ugh!
   START_YEAR <- FIRST_YEAR-EQUILIB_YEARS
@@ -47,7 +50,6 @@
   initial(out_CUR_DOW) <- DOW_START
   update(out_CUR_DOW) <- CUR_DOW
 
-  
   LEAP_YEAR <- START_YEAR %% 4
   YEAR_OFFSET <- if(LEAP_YEAR==0) 0 else (4.0-LEAP_YEAR)
   TIME_OFFSET <- TIME+YEAR_OFFSET*YL/DT
@@ -284,6 +286,9 @@
   Beta_mh_mean <- 0.86*Beta_mh_max
   Beta_hm_mean <- 0.86*Beta_hm_max
   
+  ## COVID pandemic effect
+  Beta_multiplier <- if(CALENDAR_YEAR>COVID_START && CALENDAR_YEAR<COVID_STOP) COVID_trans_level else 1.0
+  
   ## Temperature dependence in beta
   # Beta_T0 <- user()  ## min temperature
   # Beta_Tw <- user()  ## width of temperature window
@@ -300,7 +305,7 @@
   Beta_norm <- 1.0/(((Beta_Tp-Beta_T0)^Beta_pT0)*((Beta_Tm-Beta_Tp)^Beta_pTm)) ## multiplier which give temp dep function max of 1
   ## temperature driven beta
   Beta_temperature <- if(temperature <= Beta_T0 || temperature >= Beta_Tm) 0 else (Beta_norm * ((temperature-Beta_T0)^Beta_pT0)*((Beta_Tm-temperature)^Beta_pTm))
-  Beta_mh <- Beta_mh_max*Beta_temperature ## assume same form for Beta_hm and Beta_mh
+  Beta_mh <- Beta_mh_max*Beta_temperature*Beta_multiplier ## assume same form for Beta_hm and Beta_mh
   Beta_hm <- Beta_hm_max*Beta_temperature
   
   ## external force of infection on people

@@ -1090,7 +1090,7 @@ public:
     state_next[21] = temperature;
     real_type Beta_hm = shared->Beta_hm_max * Beta_temperature;
     real_type Beta_multiplier = (CALENDAR_YEAR > shared->COVID_START && CALENDAR_YEAR < shared->COVID_STOP ? shared->COVID_trans_level : 1);
-    real_type change_accum_rain = dust::math::exp(- (1 + rain_norm / (real_type) shared->sat_rain + (rain_norm * rain_norm) / (real_type) (shared->max_rain * shared->max_rain)) * shared->DT / (real_type) shared->tau_rain);
+    real_type change_accum_rain = dust::math::exp(- (1 + rain_norm / (real_type) shared->max_rain) * shared->DT / (real_type) shared->tau_rain);
     real_type delta = 1 / (real_type) (1 / (real_type) shared->delta_max + delta_temperature * (1 / (real_type) shared->delta_p - 1 / (real_type) shared->delta_max));
     real_type ORDINAL_YEAR = dust::math::floor(CALENDAR_YEAR + static_cast<real_type>(0.0001));
     state_next[1] = CALENDAR_YEAR;
@@ -1116,7 +1116,7 @@ public:
     real_type O_Mwt_E2 = (shared->DT * (delta + 1 / (real_type) shared->eip)) * (Mwt_E2);
     real_type O_Mwt_E3 = (shared->DT * (delta + 1 / (real_type) shared->eip)) * (Mwt_E3);
     real_type O_Mwt_E4 = (shared->DT * (delta + 1 / (real_type) shared->eip)) * (Mwt_E4);
-    state_next[5] = (accum_rain + shared->DT * rain_norm / (real_type) shared->tau_rain) * change_accum_rain;
+    state_next[5] = rain_norm / (real_type) (shared->tau_rain * (accum_rain / (real_type) shared->sat_rain + 1)) + accum_rain * change_accum_rain;
     state_next[22] = delta;
     for (int i = 1; i <= shared->N_age; ++i) {
       internal.agert[i - 1] = internal.cur_age_rate[i - 1] * agerts;
@@ -3154,7 +3154,7 @@ dust::pars_type<model> dust_pars<model>(cpp11::list user) {
   shared->sat_rain = user_get_scalar<real_type>(user, "sat_rain", shared->sat_rain, NA_REAL, NA_REAL);
   shared->sigma = user_get_scalar<real_type>(user, "sigma", shared->sigma, NA_REAL, NA_REAL);
   shared->tau_rain = user_get_scalar<real_type>(user, "tau_rain", shared->tau_rain, NA_REAL, NA_REAL);
-  shared->accum_rain_eq = 1 / (real_type) (1 + 1 / (real_type) shared->sat_rain + 1 / (real_type) (shared->max_rain * shared->max_rain));
+  shared->accum_rain_eq = static_cast<real_type>(0.5) * shared->sat_rain * (- 1 + dust::math::sqrt(1 + 4 / (real_type) shared->sat_rain / (real_type) (1 + 1 / (real_type) shared->max_rain)));
   shared->Beta_hm_mean = static_cast<real_type>(0.85999999999999999) * shared->Beta_hm_max;
   shared->Beta_mh_mean = static_cast<real_type>(0.85999999999999999) * shared->Beta_mh_max;
   shared->Beta_pT0 = shared->Beta_pTm + shared->Beta_pT0d;

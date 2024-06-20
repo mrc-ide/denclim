@@ -262,17 +262,20 @@
   rain_norm <- rainfall/rainfall_mean
   
   ## what we would expect accum_rain to equilibriate to if rainfall was constant
-  accum_rain_eq <- 1.0/(1.0+1.0/sat_rain+1.0/(max_rain*max_rain))
+  # accum_rain_eq <- 1.0/(1.0+1.0/sat_rain+1.0/(max_rain*max_rain)) ## old model
+  accum_rain_eq <- 0.5*sat_rain*(-1 + sqrt(1+4/sat_rain/(1+1/max_rain)))
   
   ## exp to prevent accum_rain going negative for small max_rain and high rainfall
-  change_accum_rain <- exp(-(1+rain_norm/sat_rain+(rain_norm*rain_norm)/(max_rain*max_rain))*DT/tau_rain)
+  # change_accum_rain <- exp(-(1+rain_norm/sat_rain+(rain_norm*rain_norm)/(max_rain*max_rain))*DT/tau_rain) ## old model
+  change_accum_rain <- exp(-(1+rain_norm/max_rain)*DT/tau_rain)
   
   initial(accum_rain) <- accum_rain_eq
   ## implicit DT^2 below intended to allow high rainfall, low max_rain scenario to pull down accum_rain fast
   ## division by rainfall_mean makes accum_rain, sat_rain, max_rain relative to mean rainfall
-  update(accum_rain) <- (accum_rain+ DT*rain_norm/tau_rain)*change_accum_rain
-
-
+  # update(accum_rain) <- (accum_rain+ DT*rain_norm/tau_rain)*change_accum_rain ## old model
+  update(accum_rain) <- rain_norm/(tau_rain*(accum_rain/sat_rain+1)) + accum_rain*change_accum_rain
+    
+  ## Carrying capacity just proportional to accum_rain
   Kc <- Kc_mean*accum_rain/accum_rain_eq
   
   
